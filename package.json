@@ -4,7 +4,6 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-
         "postinstall": "npx husky install"
     },
     "keywords": [],
@@ -13,6 +12,7 @@
     "description": "",
     "devDependencies": {
         "eslint": "8.2",
+        "git-commit-msg-linter": "^5.0.8",
         "husky": "^8.0.3",
         "lint-staged": "^15.5.2"
     }
