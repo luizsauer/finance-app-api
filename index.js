@@ -1,7 +1,9 @@
+// index.js
 import 'dotenv/config.js' // Ensure dotenv is configured before importing other modules
 import express from 'express'
 
 import { CreateUserController } from './src/controllers/create-user.js' // Importing the CreateUserController
+import { GetUserByIdController } from './src/controllers/get-user-by-id.js' // Importing the GetUserByIdController
 import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
 
 const app = express() // Initialize Express app
@@ -19,6 +21,16 @@ app.get('/api/users', async (req, res) => {
     }
 })
 
+// Get user by ID
+app.get('/api/users/:userId', async (req, res) => {
+    const getUserByIdController = new GetUserByIdController()
+
+    const { statusCode, body } = await getUserByIdController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+// Create user
 app.post('/api/users', async (req, res) => {
     const createUserController = new CreateUserController()
 

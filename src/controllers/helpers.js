@@ -1,27 +1,33 @@
-export const badRequest = (body) => {
-    return {
-        statusCode: 400,
-        body,
-    }
-}
+// src\controllers\helpers.js
+export const badRequest = (body) => ({
+    statusCode: 400,
+    body,
+})
 
-export const notFound = (body) => {
-    return {
-        statusCode: 404,
-        body,
-    }
-}
+export const notFound = (body) => ({
+    statusCode: 404,
+    body,
+})
 
-export const internalServerError = () => {
-    return {
-        statusCode: 500,
+export const internalServerError = () => ({
+    statusCode: 500,
+    message: 'Internal Server Error',
+})
+
+export const created = (body) => ({
+    statusCode: 201,
+    body,
+})
+
+export const serverError = (error) => ({
+    statusCode: 500,
+    body: {
         message: 'Internal Server Error',
-    }
-}
+        error: error.message,
+    },
+})
 
-export const created = (body) => {
-    return {
-        statusCode: 201,
-        body,
-    }
-}
+export const ok = (body) => ({
+    statusCode: 200,
+    body,
+})
