@@ -1,6 +1,5 @@
 // src\controllers\create-user.js
 import EmailAlreadyInUseError from '../errors/user.js'
-import { CreateUserUseCase } from '../use-cases/index.js'
 
 import {
     badRequest,
@@ -10,6 +9,10 @@ import {
     internalServerError,
 } from './helpers/index.js'
 export class CreateUserController {
+    constructor(createUserUseCase) {
+        // Initialize any dependencies if needed
+        this.createUserUseCase = createUserUseCase
+    }
     async execute(httpRequest) {
         try {
             const params = httpRequest.body
@@ -50,8 +53,8 @@ export class CreateUserController {
             // }
 
             // chamar o usecase para criar o usuário
-            const createUserUseCase = new CreateUserUseCase()
-            const createUser = await createUserUseCase.execute(params)
+
+            const createUser = await this.createUserUseCase.execute(params)
 
             // retornar a resposta apropriada (ex: sucesso, erro, etc.)
             return created(createUser)
