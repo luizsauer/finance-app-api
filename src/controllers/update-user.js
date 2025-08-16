@@ -1,7 +1,15 @@
+// src\controllers\update-user.js
 import validator from 'validator'
 import EmailAlreadyInUseError from '../errors/user.js'
 import { UpdateUserUseCase } from '../use-cases/update-user.js'
-import { badRequest, ok, serverError } from './helpers.js'
+import { badRequest, ok, serverError } from './helpers/http.js'
+import {
+    checkIfEmailIsValid,
+    checkIfFullNameIsValid,
+    checkIfPasswordIsValid,
+    emailAlreadyInUseResponse,
+    invalidIdResponse,
+} from './helpers/user.js'
 export class UpdateUserController {
     async execute(httpRequest) {
         try {
@@ -10,7 +18,7 @@ export class UpdateUserController {
             const isIdValid = validator.isUUID(userId)
 
             if (!isIdValid) {
-                return badRequest({ message: 'Invalid user ID format' })
+                return invalidIdResponse()
             }
 
             const updateUserParams = httpRequest.body
@@ -33,38 +41,34 @@ export class UpdateUserController {
             }
 
             if (updateUserParams.password) {
-                if (updateUserParams.password.length < 6) {
-                    return badRequest({
-                        message: 'A senha deve ter pelo menos 6 caracteres',
-                    })
+                const passwordError = checkIfPasswordIsValid(
+                    updateUserParams.password,
+                )
+                if (passwordError) {
+                    return passwordError
                 }
             }
 
             if (updateUserParams.first_name || updateUserParams.last_name) {
-                if (
-                    !updateUserParams.first_name ||
-                    !updateUserParams.last_name
-                ) {
-                    return badRequest({
-                        message:
-                            'O nome completo deve incluir nome e sobrenome',
-                    })
+                const nameError = checkIfFullNameIsValid(
+                    `${updateUserParams.first_name} ${updateUserParams.last_name}`,
+                )
+                if (nameError) {
+                    return nameError
                 }
             }
 
             // validar o formato do email
             if (updateUserParams.email) {
-                // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                // if (!emailRegex.test(updateUserParams.email)) {
-                //     return badRequest({
-                //         message: 'O email deve ser um email válido',
-                //     })
-                // }
+                const emailError = checkIfEmailIsValid(updateUserParams.email)
+                if (emailError) {
+                    return emailError
+                }
                 if (
                     updateUserParams.email &&
                     !validator.isEmail(updateUserParams.email)
                 ) {
-                    return badRequest({ message: 'Invalid email format' })
+                    return emailAlreadyInUseResponse()
                 }
             }
 

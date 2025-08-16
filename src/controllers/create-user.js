@@ -1,9 +1,8 @@
 // src\controllers\create-user.js
-import validator from 'validator'
 import EmailAlreadyInUseError from '../errors/user.js'
 import { CreateUserUseCase } from '../use-cases/create-user.js'
-import { badRequest, created, internalServerError } from './helpers.js'
-
+import { badRequest, created, internalServerError } from './helpers/http.js'
+import { checkIfEmailIsValid, checkIfPasswordIsValid } from './helpers/user.js'
 export class CreateUserController {
     async execute(httpRequest) {
         try {
@@ -23,34 +22,27 @@ export class CreateUserController {
                     })
                 }
             }
-            // validar o tamanho da senha
-            if (params.password.length < 6) {
-                return badRequest({
-                    message: 'Password must be at least 6 characters long',
-                })
-            }
-            // validar a complexidade da senha
-            if (
-                params.password &&
-                !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(params.password)
-            ) {
-                return badRequest({
-                    message:
-                        'Password must contain at least one letter, one number, and be at least 6 characters long',
-                })
+            // validar o formato do email
+            const emailError = checkIfEmailIsValid(params.email)
+            if (emailError) {
+                return emailError
             }
 
-            // validar a confirmação da senha
-            // if (params.password !== params.confirm_password) {
-            //     return badRequest({
-            //         message: 'Passwords do not match',
-            //     })
+            // validar o tamanho da senha
+            const passwordError = checkIfPasswordIsValid(params.password)
+            if (passwordError) {
+                return passwordError
+            }
+
+            // // validar a confirmação da senha
+            // const confirmPasswordError = checkIfConfirmPasswordIsValid(
+            //     params.password,
+            //     params.confirm_password
+            // )
+            // if (confirmPasswordError) {
+            //     return confirmPasswordError
             // }
 
-            // validar o formato do email
-            if (params.email && !validator.isEmail(params.email)) {
-                return badRequest({ message: 'Invalid email format' })
-            }
             // chamar o usecase para criar o usuário
             const createUserUseCase = new CreateUserUseCase()
             const createUser = await createUserUseCase.execute(params)

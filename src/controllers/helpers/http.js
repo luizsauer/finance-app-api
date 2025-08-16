@@ -1,4 +1,4 @@
-// src\controllers\helpers.js
+// src\controllers\helpers\http.js
 export const badRequest = (body) => ({
     statusCode: 400,
     body,
