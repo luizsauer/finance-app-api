@@ -4,6 +4,7 @@ import express from 'express'
 
 import {
     CreateUserController,
+    DeleteUserController,
     GetUserByIdController,
     UpdateUserController,
 } from './src/controllers/index.js' // Importing the CreateUserController
@@ -48,6 +49,15 @@ app.patch('/api/users/:userId', async (req, res) => {
     const updateUserController = new UpdateUserController()
 
     const { statusCode, body } = await updateUserController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+// Delete User
+app.delete('/api/users/:userId', async (req, res) => {
+    const deleteUserController = new DeleteUserController()
+
+    const { statusCode, body } = await deleteUserController.execute(req)
 
     res.status(statusCode).send(body)
 })

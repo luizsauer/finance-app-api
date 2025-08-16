@@ -1,7 +1,11 @@
 // src\controllers\get-user-by-id.js
 import { GetUserByIdUseCase } from '../use-cases/index.js'
-import { notFound, ok, serverError } from './helpers/http.js'
-import { checkIfIdIsValid } from './helpers/user.js'
+import {
+    checkIfIdIsValid,
+    ok,
+    serverError,
+    userNotFoundResponse,
+} from './helpers/index.js'
 
 export class GetUserByIdController {
     async execute(httpRequest) {
@@ -17,7 +21,7 @@ export class GetUserByIdController {
             const user = await getUserByIdUseCase.execute(userId)
 
             if (!user) {
-                return notFound({ message: 'User not found' })
+                return userNotFoundResponse()
             }
             return ok(user)
         } catch (error) {

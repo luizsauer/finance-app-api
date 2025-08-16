@@ -1,6 +1,6 @@
 // src\controllers\helpers\user.js
 import validator from 'validator'
-import { badRequest } from './http.js'
+import { badRequest, notFound } from './http.js'
 
 export const invalidPasswordResponse = () =>
     badRequest({
@@ -30,6 +30,11 @@ export const invalidNameResponse = () =>
 export const invalidIdResponse = () =>
     badRequest({
         message: 'Invalid user ID format',
+    })
+
+export const userNotFoundResponse = () =>
+    notFound({
+        message: 'User not found',
     })
 
 export const checkIfPasswordIsValid = (password) => {
