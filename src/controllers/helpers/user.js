@@ -63,3 +63,10 @@ export const checkIfFullNameIsValid = (fullName) => {
     }
     return null
 }
+
+export const checkIfIdIsValid = (id) => {
+    if (!id || !validator.isUUID(id)) {
+        return invalidIdResponse()
+    }
+    return null
+}
