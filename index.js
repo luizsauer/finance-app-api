@@ -2,9 +2,12 @@
 import 'dotenv/config.js' // Ensure dotenv is configured before importing other modules
 import express from 'express'
 
-import { CreateUserController } from './src/controllers/create-user.js' // Importing the CreateUserController
-import { GetUserByIdController } from './src/controllers/get-user-by-id.js' // Importing the GetUserByIdController
-import { UpdateUserController } from './src/controllers/update-user.js'
+import {
+    CreateUserController,
+    GetUserByIdController,
+    UpdateUserController,
+} from './src/controllers/index.js' // Importing the CreateUserController
+
 import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
 
 const app = express() // Initialize Express app
