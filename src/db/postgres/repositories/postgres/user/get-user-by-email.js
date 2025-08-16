@@ -1,5 +1,5 @@
 // src\db\postgres\repositories\postgres\get-user-by-email.js
-import { PostgresHelper } from '../../helper.js'
+import { PostgresHelper } from '../../../helper.js'
 
 export class GetUserByEmailRepository {
     async execute(email) {

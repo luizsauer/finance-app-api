@@ -1,5 +1,5 @@
 // src\db\postgres\repositories\postgres\create-user.js
-import { PostgresHelper } from '../../helper.js' // Importing PostgresHelper for database operations
+import { PostgresHelper } from '../../../helper.js' // Importing PostgresHelper for database operations
 export class PostgresCreateUserRepository {
     async execute(userData) {
         const { id, first_name, last_name, email, password } = userData

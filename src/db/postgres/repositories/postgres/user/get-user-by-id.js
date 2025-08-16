@@ -1,5 +1,5 @@
 // src\db\postgres\repositories\postgres\get-user-by-id.js
-import { PostgresHelper } from '../../helper.js'
+import { PostgresHelper } from '../../../helper.js'
 export class PostgresGetUserByIdRepository {
     async execute(userId) {
         const user = await PostgresHelper.query(
