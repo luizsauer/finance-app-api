@@ -1,6 +1,7 @@
 import 'dotenv/config.js' // Ensure dotenv is configured before importing other modules
 import express from 'express'
 
+import { CreateUserController } from './src/controllers/create-user.js' // Importing the CreateUserController
 import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
 
 const app = express() // Initialize Express app
@@ -19,19 +20,11 @@ app.get('/api/users', async (req, res) => {
 })
 
 app.post('/api/users', async (req, res) => {
-    // const { first_name, last_name, email, password } = req.body
-    // try {
-    //     const result = await PostgresHelper.query(
-    //         'INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
-    //         [first_name, last_name, email, password],
-    //     )
-    //     res.status(201).send(JSON.stringify(result))
-    // } catch (error) {
-    //     console.error('Error executing query', error)
-    //     res.status(500).send('Internal Server Error')
-    // }
-    console.log(req.body)
-    res.status(201).send('User created successfully') // Placeholder response
+    const createUserController = new CreateUserController()
+
+    const { statusCode, body } = await createUserController.execute(req)
+
+    res.status(statusCode).send(body)
 })
 
 // Start the Express server on the specified port
