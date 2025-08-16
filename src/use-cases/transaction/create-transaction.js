@@ -1,6 +1,6 @@
 // src\use-cases\transaction\create-transaction.js
 import { v4 as uuidv4 } from 'uuid'
-import { UserNotFoundError } from '../../errors/user'
+import { UserNotFoundError } from '../../errors/user.js'
 
 export class CreateTransactionUseCase {
     constructor(createdTransactionRepository, getUserByIdRepository) {

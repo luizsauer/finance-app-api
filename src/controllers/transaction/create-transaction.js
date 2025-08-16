@@ -1,6 +1,7 @@
+// src\controllers\transaction\create-transaction.js
 import validator from 'validator'
-import { badRequest, serverError } from '../helpers'
-import { checkIfIdIsValid } from '../helpers/validators.js'
+import { badRequest, serverError } from '../helpers/http.js'
+import { checkIfIdIsValid } from '../helpers/user.js'
 
 export class CreateTransactionController {
     constructor(createTransactionUseCase) {
