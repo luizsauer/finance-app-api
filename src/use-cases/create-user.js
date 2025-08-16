@@ -15,8 +15,10 @@ export class CreateUserUseCase {
         // verificar se o email já está em uso
         const postgresGetUserByEmailRepository =
             new PostgresGetUserByEmailRepository()
+
         const userWithProvidedEmail =
             await postgresGetUserByEmailRepository.execute(userData.email)
+
         if (userWithProvidedEmail) {
             throw new EmailAlreadyInUseError(userData.email)
         }
