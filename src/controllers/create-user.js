@@ -58,7 +58,7 @@ export class CreateUserController {
             return created(createUser)
         } catch (error) {
             console.error('Error creating user', error)
-            return internalServerError({ message: 'Internal Server Error' })
+            return internalServerError(error)
         }
     }
 }

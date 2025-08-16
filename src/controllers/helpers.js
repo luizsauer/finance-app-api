@@ -9,9 +9,12 @@ export const notFound = (body) => ({
     body,
 })
 
-export const internalServerError = () => ({
+export const internalServerError = (error) => ({
     statusCode: 500,
-    message: 'Internal Server Error',
+    body: {
+        message: 'Internal Server Error',
+        error: error?.message || error,
+    },
 })
 
 export const created = (body) => ({
