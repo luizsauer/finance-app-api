@@ -1,7 +1,7 @@
 // src\use-cases\create-user.js
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
-import EmailAlreadyInUseError from '../errors/user.js'
+import EmailAlreadyInUseError from '../../errors/user.js'
 
 export class CreateUserUseCase {
     constructor(userRepository, getUserByEmailRepository) {
