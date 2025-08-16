@@ -10,6 +10,7 @@ import {
 } from './src/controllers/index.js' // Importing the CreateUserController
 import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
 import { PostgresDeleteUserRepository } from './src/db/postgres/repositories/postgres/delete-user.js' // Importing the PostgresDeleteUserRepository
+import { GetUserByEmailRepository } from './src/db/postgres/repositories/postgres/get-user-by-email.js' // Importing the GetUserByEmailRepository
 import { PostgresGetUserByIdRepository } from './src/db/postgres/repositories/postgres/get-user-by-id.js' // Importing the PostgresGetUserByIdRepository
 import {
     PostgresCreateUserRepository,
@@ -19,7 +20,6 @@ import { CreateUserUseCase } from './src/use-cases/create-user.js' // Import
 import { DeleteUserUseCase } from './src/use-cases/delete-user.js' // Import
 import { GetUserByIdUseCase } from './src/use-cases/get-user-by-id.js' // Importing the GetUserByIdUseCase
 import { UpdateUserUseCase } from './src/use-cases/update-user.js' // Import
-
 const app = express() // Initialize Express app
 
 app.use(express.json()) // Middleware to parse JSON bodies
@@ -50,8 +50,12 @@ app.get('/api/users/:userId', async (req, res) => {
 
 // Create user
 app.post('/api/users', async (req, res) => {
+    const getUserByEmailRepository = new GetUserByEmailRepository()
     const createUserRepository = new PostgresCreateUserRepository()
-    const createUserUseCase = new CreateUserUseCase(createUserRepository)
+    const createUserUseCase = new CreateUserUseCase(
+        createUserRepository,
+        getUserByEmailRepository,
+    )
     const createUserController = new CreateUserController(createUserUseCase)
 
     const { statusCode, body } = await createUserController.execute(req)
@@ -61,8 +65,12 @@ app.post('/api/users', async (req, res) => {
 
 // Update user
 app.patch('/api/users/:userId', async (req, res) => {
+    const getUserByEmailRepository = new GetUserByEmailRepository()
     const updateUserRepository = new PostgresUpdateUserRepository()
-    const updateUserUseCase = new UpdateUserUseCase(updateUserRepository)
+    const updateUserUseCase = new UpdateUserUseCase(
+        updateUserRepository,
+        getUserByEmailRepository,
+    )
     const updateUserController = new UpdateUserController(updateUserUseCase)
 
     const { statusCode, body } = await updateUserController.execute(req)
