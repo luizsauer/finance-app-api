@@ -1,8 +1,10 @@
 // src\use-cases\create-user.js
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
-import { PostgresCreateUserRepository } from '../db/postgres/repositories/postgres/create-user.js'
-import { PostgresGetUserByEmailRepository } from '../db/postgres/repositories/postgres/get-user-by-email.js'
+import {
+    PostgresCreateUserRepository,
+    PostgresGetUserByEmailRepository,
+} from '../db/postgres/repositories/postgres/index.js'
 import EmailAlreadyInUseError from '../errors/user.js'
 
 export class CreateUserUseCase {

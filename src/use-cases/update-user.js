@@ -1,7 +1,9 @@
 // src\use-cases\update-user.js
 import bcrypt from 'bcryptjs'
-import { PostgresGetUserByEmailRepository } from '../db/postgres/repositories/postgres/get-user-by-email.js'
-import { PostgresUpdateUserRepository } from '../db/postgres/repositories/postgres/update-user.js'
+import {
+    PostgresGetUserByEmailRepository,
+    PostgresUpdateUserRepository,
+} from '../db/postgres/repositories/postgres/index.js'
 import EmailAlreadyInUseError from '../errors/user.js'
 
 export class UpdateUserUseCase {

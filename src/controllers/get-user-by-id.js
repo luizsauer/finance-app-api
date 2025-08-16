@@ -1,5 +1,5 @@
 // src\controllers\get-user-by-id.js
-import { GetUserByIdUseCase } from '../use-cases/get-user-by-id.js'
+import { GetUserByIdUseCase } from '../use-cases/index.js'
 import { notFound, ok, serverError } from './helpers/http.js'
 import { checkIfIdIsValid } from './helpers/user.js'
 
