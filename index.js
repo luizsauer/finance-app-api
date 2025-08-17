@@ -5,7 +5,9 @@ import express from 'express'
 import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
 import {
     makeCreateTransactionController,
+    makeDeleteTransactionController,
     makeGetTransactionsByUserIdController,
+    makeUpdateTransactionController,
 } from './src/factories/controllers/transactions.js'
 import {
     makeCreateUserController,
@@ -81,6 +83,24 @@ app.post('/api/transactions', async (req, res) => {
     const createTransactionController = makeCreateTransactionController()
 
     const { statusCode, body } = await createTransactionController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+// Update Transaction
+app.patch('/api/transactions/:transactionId', async (req, res) => {
+    const updateTransactionController = makeUpdateTransactionController()
+
+    const { statusCode, body } = await updateTransactionController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+// Delete Transaction
+app.delete('/api/transactions/:transactionId', async (req, res) => {
+    const deleteTransactionController = makeDeleteTransactionController()
+
+    const { statusCode, body } = await deleteTransactionController.execute(req)
 
     res.status(statusCode).send(body)
 })
