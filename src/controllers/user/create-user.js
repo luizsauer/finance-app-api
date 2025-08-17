@@ -7,6 +7,7 @@ import {
     checkIfPasswordIsValid,
     created,
     internalServerError,
+    requiredFieldIsMissingResponse,
     validateRequiredFields,
 } from '../helpers/index.js'
 export class CreateUserController {
@@ -29,9 +30,7 @@ export class CreateUserController {
                 validateRequiredFields(params, requiredFields)
 
             if (!requiredFieldsWereProvided) {
-                return badRequest({
-                    message: `The field ${missingField} is required.`,
-                })
+                return requiredFieldIsMissingResponse(missingField)
             }
 
             // validar o formato do email

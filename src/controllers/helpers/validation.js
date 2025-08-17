@@ -14,6 +14,11 @@ export const invalidIdResponse = () =>
         message: 'Invalid user ID format',
     })
 
+export const requiredFieldIsMissingResponse = (field) =>
+    badRequest({
+        message: `The field ${field} is required.`,
+    })
+
 export const checkIfIsString = (value) => {
     return typeof value === 'string' || value instanceof String
 }
