@@ -27,11 +27,6 @@ export const invalidNameResponse = () =>
         message: 'Full name must include first and last name',
     })
 
-export const invalidIdResponse = () =>
-    badRequest({
-        message: 'Invalid user ID format',
-    })
-
 export const userNotFoundResponse = () =>
     notFound({
         message: 'User not found',
@@ -65,13 +60,6 @@ export const checkIfConfirmPasswordIsValid = (password, confirmPassword) => {
 export const checkIfFullNameIsValid = (fullName) => {
     if (!fullName || fullName.split(' ').length < 2) {
         return invalidNameResponse()
-    }
-    return null
-}
-
-export const checkIfIdIsValid = (id) => {
-    if (!id || !validator.isUUID(id)) {
-        return invalidIdResponse()
     }
     return null
 }
