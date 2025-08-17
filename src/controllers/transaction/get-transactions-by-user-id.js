@@ -1,7 +1,7 @@
-import { userNotFoundError } from '../../errors/index.js'
+// src\controllers\transaction\get-transactions-by-user-id.js
+import { UserNotFoundError } from '../../errors/user.js'
 import {
     checkIfIdIsValid,
-    invalidIdResponse,
     ok,
     requiredFieldIsMissingResponse,
     serverError,
@@ -15,14 +15,14 @@ export class GetTransactionsByUserIdController {
     async execute(httpRequest) {
         try {
             // verificar se o userId foi passado como parametro
-            const { user_id } = httpRequest.query.user_id
+            const { user_id } = httpRequest.query
             if (!user_id) {
                 return requiredFieldIsMissingResponse('user_id')
             }
             // verificar se o userId é um Id valido
-            const userIdIsValid = checkIfIdIsValid(user_id)
-            if (!userIdIsValid) {
-                return invalidIdResponse()
+            const idError = checkIfIdIsValid(user_id)
+            if (idError) {
+                return idError
             }
             // chamar o use case
             const transactions =
@@ -36,7 +36,7 @@ export class GetTransactionsByUserIdController {
         } catch (error) {
             console.error(error)
 
-            if (error instanceof userNotFoundError) {
+            if (error instanceof UserNotFoundError) {
                 return userNotFoundResponse()
             }
             return serverError()

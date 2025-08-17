@@ -1,6 +1,7 @@
+// src\db\postgres\repositories\postgres\transaction\get-transactions-by-user-id.js
 import { PostgresHelper } from '../../../helper.js'
 
-export class PostgresGetTransactionByUserId {
+export class PostgresGetTransactionByUserIdRepository {
     async execute(userId) {
         const transactions = await PostgresHelper.query(
             'SELECT * FROM transactions WHERE user_id = $1',
