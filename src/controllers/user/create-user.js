@@ -7,6 +7,7 @@ import {
     checkIfPasswordIsValid,
     created,
     internalServerError,
+    validateRequiredFields,
 } from '../helpers/index.js'
 export class CreateUserController {
     constructor(createUserUseCase) {
@@ -24,13 +25,15 @@ export class CreateUserController {
                 'password',
             ]
             // validar os dados do usuário
-            for (const field of requiredFields) {
-                if (!params[field] || params[field].trim().length === 0) {
-                    return badRequest({
-                        message: `Missing required field: ${field}`,
-                    })
-                }
+            const { missingField, ok: requiredFieldsWereProvided } =
+                validateRequiredFields(params, requiredFields)
+
+            if (!requiredFieldsWereProvided) {
+                return badRequest({
+                    message: `The field ${missingField} is required.`,
+                })
             }
+
             // validar o formato do email
             const emailError = checkIfEmailIsValid(params.email)
             if (emailError) {
