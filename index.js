@@ -3,6 +3,7 @@ import 'dotenv/config.js' // Ensure dotenv is configured before importing other 
 import express from 'express'
 
 import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
+import { makeCreateTransactionController } from './src/factories/controllers/transactions.js'
 import {
     makeCreateUserController,
     makeDeleteUserController,
@@ -57,6 +58,15 @@ app.delete('/api/users/:userId', async (req, res) => {
     const deleteUserController = makeDeleteUserController()
 
     const { statusCode, body } = await deleteUserController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+// Create Transaction
+app.post('/api/transactions', async (req, res) => {
+    const createTransactionController = makeCreateTransactionController()
+
+    const { statusCode, body } = await createTransactionController.execute(req)
 
     res.status(statusCode).send(body)
 })

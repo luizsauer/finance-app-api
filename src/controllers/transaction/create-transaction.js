@@ -1,6 +1,6 @@
 // src\controllers\transaction\create-transaction.js
 import validator from 'validator'
-import { badRequest, serverError } from '../helpers/http.js'
+import { badRequest, ok, serverError } from '../helpers/http.js'
 import { checkIfIdIsValid } from '../helpers/user.js'
 
 export class CreateTransactionController {
@@ -12,25 +12,21 @@ export class CreateTransactionController {
         try {
             const params = httpRequest.body
 
-            const requiredFields = [
-                'id',
-                'user_id',
-                'name',
-                'date',
-                'amount',
-                'type',
-            ]
+            const requiredFields = ['user_id', 'name', 'date', 'amount', 'type']
 
             // validar os dados do usuário
             for (const field of requiredFields) {
-                if (!params[field] || params[field].trim().length === 0) {
+                if (
+                    !params[field] ||
+                    params[field].toString().trim().length === 0
+                ) {
                     return badRequest({
                         message: `Missing required field: ${field}`,
                     })
                 }
             }
 
-            const isValidId = checkIfIdIsValid(params.id)
+            const isValidId = checkIfIdIsValid(params.user_id)
             if (isValidId) {
                 return isValidId
             }
@@ -45,7 +41,7 @@ export class CreateTransactionController {
             const amountIsValid = validator.isCurrency(
                 params.amount.toString(),
                 {
-                    digits_after_decimal: 2,
+                    digits_after_decimal: [2],
                     allow_negatives: false,
                     decimal_separator: '.',
                 },
@@ -75,7 +71,7 @@ export class CreateTransactionController {
                     type,
                 })
 
-            return createdTransaction
+            return ok(createdTransaction)
         } catch (error) {
             console.error('Error creating transaction', error)
             return serverError(error)

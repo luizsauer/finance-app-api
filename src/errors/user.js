@@ -1,3 +1,4 @@
+// src\errors\user.js
 class EmailAlreadyInUseError extends Error {
     constructor(email) {
         super(`The email ${email} is already in use.`)
