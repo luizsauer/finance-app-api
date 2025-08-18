@@ -1,4 +1,4 @@
-// src\db\postgres\repositories\postgres\index.js
+// src\repositories\postgres\index.js
 
 export * from './user/create-user.js'
 export * from './user/delete-user.js'

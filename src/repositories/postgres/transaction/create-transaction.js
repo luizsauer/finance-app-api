@@ -1,5 +1,5 @@
-// src\db\postgres\repositories\postgres\transaction\create-transaction.js
-import { PostgresHelper } from '../../../helper.js' // Importing PostgresHelper for database operations
+// src\repositories\postgres\transaction\create-transaction.js
+import { PostgresHelper } from '../../../db/postgres/helper.js' // Importing PostgresHelper for database operations
 
 export class PostgresCreateTransactionRepository {
     async execute(createTransactionParams) {

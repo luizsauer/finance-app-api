@@ -6,12 +6,12 @@ import {
     UpdateUserController,
 } from '../../controllers/index.js' // Importing the CreateUserController
 import {
+    GetUserByEmailRepository,
     PostgresCreateUserRepository,
     PostgresDeleteUserRepository,
     PostgresGetUserByIdRepository,
     PostgresUpdateUserRepository,
-} from '../../db/postgres/repositories/postgres/index.js' // Importing the PostgresGetUserByIdRepository
-import { GetUserByEmailRepository } from '../../db/postgres/repositories/postgres/user/get-user-by-email.js' // Importing the GetUserByEmailRepository
+} from '../../repositories/postgres/index.js' // Importing the PostgresGetUserByIdRepository
 import {
     CreateUserUseCase,
     DeleteUserUseCase,

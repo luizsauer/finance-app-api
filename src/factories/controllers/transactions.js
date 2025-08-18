@@ -13,7 +13,7 @@ import {
     PostgresGetUserBalanceRepository,
     PostgresGetUserByIdRepository,
     PostgresUpdateTransactionRepository,
-} from '../../db/postgres/repositories/postgres/index.js'
+} from '../../repositories/postgres/index.js'
 import {
     CreateTransactionUseCase,
     DeleteTransactionUseCase,

@@ -1,5 +1,5 @@
-// src\db\postgres\repositories\postgres\transaction\get-transactions-by-user-id.js
-import { PostgresHelper } from '../../../helper.js'
+// src\repositories\postgres\transaction\get-transactions-by-user-id.js
+import { PostgresHelper } from '../../../db/postgres/helper.js'
 
 export class PostgresGetTransactionByUserIdRepository {
     async execute(userId) {

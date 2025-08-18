@@ -1,5 +1,5 @@
-// src\db\postgres\repositories\postgres\transaction\update-transaction.js
-import { PostgresHelper } from '../../../helper.js' // Importing PostgresHelper for database operations
+// src\repositories\postgres\transaction\update-transaction.js
+import { PostgresHelper } from '../../../db/postgres/helper.js' // Importing PostgresHelper for database operations
 
 export class PostgresUpdateTransactionRepository {
     async execute(transactionId, updateTransactionParams) {

@@ -1,5 +1,5 @@
-// src\db\postgres\repositories\postgres\delete-user.js
-import { PostgresHelper } from '../../../helper.js'
+// src\repositories\postgres\delete-user.js
+import { PostgresHelper } from '../../../db/postgres/helper.js'
 
 export class PostgresDeleteUserRepository {
     async execute(userId) {

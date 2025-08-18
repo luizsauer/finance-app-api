@@ -1,4 +1,5 @@
-import { PostgresHelper } from '../../../helper.js'
+// src\repositories\postgres\user\get-user-balance.js
+import { PostgresHelper } from '../../../db/postgres/helper.js'
 
 export class PostgresGetUserBalanceRepository {
     async execute(userId) {
