@@ -1,21 +1,27 @@
 // src\repositories\postgres\transaction\create-transaction.js
-import { PostgresHelper } from '../../../db/postgres/helper.js' // Importing PostgresHelper for database operations
+import { prisma } from '../../../../prisma/prisma.js'
 
 export class PostgresCreateTransactionRepository {
     async execute(createTransactionParams) {
-        const createdTransaction = await PostgresHelper.query(
-            `INSERT INTO transactions (id, user_id, name, date, amount, type)
-            VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING *`,
-            [
-                createTransactionParams.id,
-                createTransactionParams.user_id,
-                createTransactionParams.name,
-                createTransactionParams.date,
-                createTransactionParams.amount,
-                createTransactionParams.type,
-            ],
-        )
-        return createdTransaction[0] // retorna o primeiro campo da consulta
+        return await prisma.transaction.create({
+            data: createTransactionParams,
+        })
     }
 }
+
+// async execute(createTransactionParams) {
+//     const createdTransaction = await PostgresHelper.query(
+//         `INSERT INTO transactions (id, user_id, name, date, amount, type)
+//         VALUES ($1, $2, $3, $4, $5, $6)
+//         RETURNING *`,
+//         [
+//             createTransactionParams.id,
+//             createTransactionParams.user_id,
+//             createTransactionParams.name,
+//             createTransactionParams.date,
+//             createTransactionParams.amount,
+//             createTransactionParams.type,
+//         ],
+//     )
+//     return createdTransaction[0] // retorna o primeiro campo da consulta
+// }
