@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 // Root endpoint - returns a greeting
 app.get('/api/users', async (req, res) => {
     try {
-        const result = await PostgresHelper.query('SELECT * FROM users') // Query the users table
+        const result = await PostgresHelper.query('SELECT * FROM user') // Query the users table
         res.send(JSON.stringify(result)) // Return the rows as JSON
     } catch (error) {
         console.error('Error executing query', error)
