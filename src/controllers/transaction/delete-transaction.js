@@ -1,34 +1,36 @@
 // src\controllers\transaction\delete-transaction.js
-import {
-    checkIfIdIsValid,
-    ok,
-    requiredFieldIsMissingResponse,
-    serverError,
-} from '../helpers/index.js'
+import { checkIfIdIsValid, ok, serverError } from '../helpers/index.js'
+import { transactionNotFoundResponse } from '../helpers/transaction.js'
 
 export class DeleteTransactionController {
     constructor(deleteTransactionUseCase) {
         this.deleteTransactionUseCase = deleteTransactionUseCase
     }
 
-    async handle(httpRequest) {
+    async execute(httpRequest) {
         try {
-            const { id, user_id } = httpRequest.body
+            const idIsValid = checkIfIdIsValid(httpRequest.params.transactionId)
 
-            if (!id || !user_id) {
-                return requiredFieldIsMissingResponse(['id', 'user_id'])
+            if (idIsValid) {
+                console.warn('ID:', httpRequest.params.transactionId)
+                return idIsValid
             }
 
-            const idError = checkIfIdIsValid(id)
+            const deletedTransaction =
+                await this.deleteTransactionUseCase.execute(
+                    httpRequest.params.transactionId,
+                )
 
-            if (idError) {
-                return idError
+            console.log('o:', deletedTransaction)
+
+            if (!deletedTransaction) {
+                console.warn('uir')
+                return transactionNotFoundResponse()
             }
 
-            await this.deleteTransactionUseCase.execute(httpRequest.body)
-
-            return ok({ success: true })
+            return ok(deletedTransaction)
         } catch (error) {
+            console.error('Error in DeleteTransactionController:', error)
             return serverError(error)
         }
     }

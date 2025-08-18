@@ -1,0 +1,28 @@
+import { PostgresHelper } from '../../../helper'
+
+export class PostgresGetUserBalanceRepository {
+    async execute(userId) {
+        const userBalance = await PostgresHelper.query(
+            `SELECT 
+                SUM(CASE WHEN TYPE = 'EARNING' THEN amount ELSE 0 END) AS earnings,
+                SUM(CASE WHEN TYPE = 'EXPENSE' THEN amount ELSE 0 END) AS expenses,
+                SUM(CASE WHEN TYPE = 'INVESTMENT' THEN amount ELSE 0 END) AS investments,
+
+                (
+                    SUM(CASE WHEN TYPE = 'EARNING' THEN amount ELSE 0 END)
+                    - SUM(CASE WHEN TYPE = 'EXPENSE' THEN amount ELSE 0 END)
+                    - SUM(CASE WHEN TYPE = 'INVESTMENT' THEN amount ELSE 0 END)
+                ) AS total
+            FROM transactions
+            WHERE user_id = $1`,
+            [userId],
+        )
+        if (userBalance.length === 0) {
+            return null // User not found
+        }
+        return {
+            user: userId,
+            balance: userBalance[0].balance,
+        }
+    }
+}

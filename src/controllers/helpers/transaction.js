@@ -1,4 +1,5 @@
 import validator from 'validator'
+import { notFound } from './index.js'
 
 export const checkIfAmountIsValid = (amount) => {
     if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
@@ -33,4 +34,8 @@ export const invalidTypeResponse = () => {
                 'Invalid type. Type must be either "EARNING", "EXPENSE", or "INVESTMENT".',
         },
     }
+}
+
+export const transactionNotFoundResponse = () => {
+    return notFound('Transaction not found.')
 }

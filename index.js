@@ -20,6 +20,14 @@ const app = express() // Initialize Express app
 
 app.use(express.json()) // Middleware to parse JSON bodies
 
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
+    console.log('Params:', req.params)
+    console.log('Query:', req.query)
+    console.log('Body:', req.body)
+    next()
+})
+
 // Root endpoint - returns a greeting
 app.get('/api/users', async (req, res) => {
     try {
@@ -103,6 +111,14 @@ app.delete('/api/transactions/:transactionId', async (req, res) => {
     const { statusCode, body } = await deleteTransactionController.execute(req)
 
     res.status(statusCode).send(body)
+})
+
+app.use((err, req, res) => {
+    console.error('Unhandled error:', err)
+    res.status(500).json({
+        message: 'Internal Server Error',
+        error: err.message,
+    })
 })
 
 // Start the Express server on the specified port
