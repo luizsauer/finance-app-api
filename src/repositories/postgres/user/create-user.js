@@ -1,17 +1,18 @@
 // src\repositories\postgres\create-user.js
-import { PostgresHelper } from '../../../db/postgres/helper.js' // Importing PostgresHelper for database operations
+import { prisma } from '../../../../prisma/prisma.js'
+
 export class PostgresCreateUserRepository {
-    async execute(userData) {
-        const { id, first_name, last_name, email, password } = userData
-        await PostgresHelper.query(
-            'INSERT INTO users (id, first_name, last_name, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [id, first_name, last_name, email, password],
-        )
-        const createdUser = await PostgresHelper.query(
-            'SELECT * FROM users WHERE id = $1',
-            [id],
-        )
-        return createdUser
+    async execute(createUserParams) {
+        const user = await prisma.user.create({
+            data: {
+                id: createUserParams.id,
+                first_name: createUserParams.first_name,
+                last_name: createUserParams.last_name,
+                email: createUserParams.email,
+                password: createUserParams.password,
+            },
+        })
+
+        return user
     }
 }
-export default PostgresCreateUserRepository // Exporting the class for use in other modules
