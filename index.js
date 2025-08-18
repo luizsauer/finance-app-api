@@ -7,6 +7,7 @@ import {
     makeCreateTransactionController,
     makeDeleteTransactionController,
     makeGetTransactionsByUserIdController,
+    makeGetUserBalanceController,
     makeUpdateTransactionController,
 } from './src/factories/controllers/transactions.js'
 import {
@@ -44,6 +45,15 @@ app.get('/api/users/:userId', async (req, res) => {
     const getUserByIdController = makeUserByIdController()
 
     const { statusCode, body } = await getUserByIdController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+// Get user balance
+app.get('/api/users/:userId/balance', async (req, res) => {
+    const getUserBalanceController = makeGetUserBalanceController()
+
+    const { statusCode, body } = await getUserBalanceController.execute(req)
 
     res.status(statusCode).send(body)
 })
@@ -113,13 +123,13 @@ app.delete('/api/transactions/:transactionId', async (req, res) => {
     res.status(statusCode).send(body)
 })
 
-app.use((err, req, res) => {
-    console.error('Unhandled error:', err)
-    res.status(500).json({
-        message: 'Internal Server Error',
-        error: err.message,
-    })
-})
+// app.use((err, req, res) => {
+//     console.error('Unhandled error:', err)
+//     res.status(500).json({
+//         message: 'Internal Server Error',
+//         error: err.message,
+//     })
+// })
 
 // Start the Express server on the specified port
 app.listen(process.env.PORT, () => {

@@ -1,8 +1,8 @@
-import { PostgresHelper } from '../../../helper'
+import { PostgresHelper } from '../../../helper.js'
 
 export class PostgresGetUserBalanceRepository {
     async execute(userId) {
-        const userBalance = await PostgresHelper.query(
+        const balance = await PostgresHelper.query(
             `SELECT 
                 SUM(CASE WHEN TYPE = 'EARNING' THEN amount ELSE 0 END) AS earnings,
                 SUM(CASE WHEN TYPE = 'EXPENSE' THEN amount ELSE 0 END) AS expenses,
@@ -17,12 +17,12 @@ export class PostgresGetUserBalanceRepository {
             WHERE user_id = $1`,
             [userId],
         )
-        if (userBalance.length === 0) {
-            return null // User not found
-        }
+        // if (userBalance.length === 0) {
+        //     return null // User not found
+        // }
         return {
-            user: userId,
-            balance: userBalance[0].balance,
+            userId,
+            ...balance[0],
         }
     }
 }
