@@ -17,9 +17,7 @@ export class PostgresGetUserBalanceRepository {
             WHERE user_id = $1`,
             [userId],
         )
-        // if (userBalance.length === 0) {
-        //     return null // User not found
-        // }
+
         return {
             userId,
             ...balance[0],
