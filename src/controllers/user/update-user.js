@@ -1,13 +1,10 @@
 // src\controllers\update-user.js
-import validator from 'validator'
+import { ZodError } from 'zod'
 import EmailAlreadyInUseError from '../../errors/user.js'
+import { updateUserSchema } from '../../schemas/user.js'
 import {
     badRequest,
-    checkIfEmailIsValid,
-    checkIfFullNameIsValid,
     checkIfIdIsValid,
-    checkIfPasswordIsValid,
-    emailAlreadyInUseResponse,
     ok,
     serverError,
 } from '../helpers/index.js'
@@ -27,54 +24,7 @@ export class UpdateUserController {
 
             const updateUserParams = httpRequest.body
 
-            const allowedFields = [
-                'email',
-                'first_name',
-                'last_name',
-                'password',
-            ]
-
-            const notAllowedField = Object.keys(updateUserParams).find(
-                (field) => !allowedFields.includes(field),
-            )
-
-            if (notAllowedField) {
-                return badRequest({
-                    message: `Some fields are not allowed: ${notAllowedField}`,
-                })
-            }
-
-            if (updateUserParams.password) {
-                const passwordError = checkIfPasswordIsValid(
-                    updateUserParams.password,
-                )
-                if (passwordError) {
-                    return passwordError
-                }
-            }
-
-            if (updateUserParams.first_name || updateUserParams.last_name) {
-                const nameError = checkIfFullNameIsValid(
-                    `${updateUserParams.first_name} ${updateUserParams.last_name}`,
-                )
-                if (nameError) {
-                    return nameError
-                }
-            }
-
-            // validar o formato do email
-            if (updateUserParams.email) {
-                const emailError = checkIfEmailIsValid(updateUserParams.email)
-                if (emailError) {
-                    return emailError
-                }
-                if (
-                    updateUserParams.email &&
-                    !validator.isEmail(updateUserParams.email)
-                ) {
-                    return emailAlreadyInUseResponse()
-                }
-            }
+            await updateUserSchema.parseAsync(updateUserParams)
 
             const updatedUser = await this.updateUserUseCase.execute(
                 userId,
@@ -85,6 +35,9 @@ export class UpdateUserController {
             }
             return ok(updatedUser)
         } catch (error) {
+            if (error instanceof ZodError) {
+                return badRequest({ message: error.issues[0].message })
+            }
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message })
             }
