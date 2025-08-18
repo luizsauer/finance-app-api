@@ -1,4 +1,5 @@
 // src\repositories\postgres\user\get-user-balance.js
+import { Prisma } from '@prisma/client'
 import { prisma } from '../../../../prisma/prisma.js'
 
 export class PostgresGetUserBalanceRepository {
@@ -38,16 +39,22 @@ export class PostgresGetUserBalanceRepository {
                 type: 'INVESTMENT',
             },
         })
+        const _totalEarningsAmount =
+            totalEarningsAmount || new Prisma.Decimal(0)
+        const _totalExpenseAmount = totalExpenseAmount || new Prisma.Decimal(0)
+        const _totalInvestmentsAmount =
+            totalInvestmentsAmount || new Prisma.Decimal(0)
 
-        const balance =
-            (totalEarningsAmount || 0) -
-            (totalExpenseAmount || 0) -
-            (totalInvestmentsAmount || 0)
-        console.log('balance', balance)
+        const balance = new Prisma.Decimal(
+            _totalEarningsAmount -
+                _totalExpenseAmount -
+                _totalInvestmentsAmount,
+        )
+
         return {
-            earnings: totalEarningsAmount,
-            expenses: totalExpenseAmount,
-            investments: totalInvestmentsAmount,
+            earnings: _totalEarningsAmount,
+            expenses: _totalExpenseAmount,
+            investments: _totalInvestmentsAmount,
             balance,
         }
     }
