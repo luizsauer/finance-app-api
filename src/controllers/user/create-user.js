@@ -1,15 +1,10 @@
 // src\controllers\create-user.js
 import EmailAlreadyInUseError from '../../errors/user.js'
 
-import {
-    badRequest,
-    checkIfEmailIsValid,
-    checkIfPasswordIsValid,
-    created,
-    internalServerError,
-    requiredFieldIsMissingResponse,
-    validateRequiredFields,
-} from '../helpers/index.js'
+import { ZodError } from 'zod'
+import { createUserSchema } from '../../schemas/user.js'
+import { badRequest, created, internalServerError } from '../helpers/index.js'
+
 export class CreateUserController {
     constructor(createUserUseCase) {
         // Initialize any dependencies if needed
@@ -17,50 +12,20 @@ export class CreateUserController {
     }
     async execute(httpRequest) {
         try {
-            const params = httpRequest.body
             // validar a requisição (ex: campos obrigatórios, formato, etc.)
-            const requiredFields = [
-                'first_name',
-                'last_name',
-                'email',
-                'password',
-            ]
-            // validar os dados do usuário
-            const { missingField, ok: requiredFieldsWereProvided } =
-                validateRequiredFields(params, requiredFields)
 
-            if (!requiredFieldsWereProvided) {
-                return requiredFieldIsMissingResponse(missingField)
-            }
+            const params = httpRequest.body // carrega o params com oq foi passado no body
 
-            // validar o formato do email
-            const emailError = checkIfEmailIsValid(params.email)
-            if (emailError) {
-                return emailError
-            }
-
-            // validar o tamanho da senha
-            const passwordError = checkIfPasswordIsValid(params.password)
-            if (passwordError) {
-                return passwordError
-            }
-
-            // // validar a confirmação da senha
-            // const confirmPasswordError = checkIfConfirmPasswordIsValid(
-            //     params.password,
-            //     params.confirm_password
-            // )
-            // if (confirmPasswordError) {
-            //     return confirmPasswordError
-            // }
-
-            // chamar o usecase para criar o usuário
+            await createUserSchema.parseAsync(params) // valida a requisição como schema com o params q foi pego no body
 
             const createUser = await this.createUserUseCase.execute(params)
 
-            // retornar a resposta apropriada (ex: sucesso, erro, etc.)
             return created(createUser)
         } catch (error) {
+            // lidar com erros e retornar a resposta apropriada
+            if (error instanceof ZodError) {
+                return badRequest({ message: error.issues[0].message })
+            }
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message })
             }
