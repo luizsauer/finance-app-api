@@ -1,6 +1,5 @@
 // src\use-cases\create-user.js
 
-import { v4 as uuidv4 } from 'uuid'
 import EmailAlreadyInUseError from '../../errors/user.js'
 
 export class CreateUserUseCase {
@@ -8,10 +7,12 @@ export class CreateUserUseCase {
         userRepository,
         getUserByEmailRepository,
         passwordHasherAdapter,
+        idGeneratorAdapter,
     ) {
         this.userRepository = userRepository
         this.getUserByEmailRepository = getUserByEmailRepository
         this.passwordHasherAdapter = passwordHasherAdapter
+        this.idGeneratorAdapter = idGeneratorAdapter
     }
 
     async execute(userData) {
@@ -25,7 +26,7 @@ export class CreateUserUseCase {
         }
 
         // Generate a unique ID for the user
-        const userId = uuidv4()
+        const userId = this.idGeneratorAdapter.execute()
 
         // Hash the password before saving
         const hashedPassword = await this.passwordHasherAdapter.execute(
