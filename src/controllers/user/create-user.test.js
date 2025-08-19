@@ -183,6 +183,30 @@ describe('Create User Controller', () => {
         const result = await createUserController.execute(httpRequest)
 
         // Assert
-        expect(result.statusCode).toBe(500)
+        expect(result.statusCode).toBe(500) // verifica se o statusCode é 500 - erro interno do servidor
+    })
+
+    it('should call CreateUserUseCase with correct values', async () => {
+        // Test implementation
+        // Arrange
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: 'John',
+                last_name: 'Doe',
+                email: 'john@example.com',
+                password: 'password123',
+            },
+        }
+        const executeSpy = jest.spyOn(createUserUseCase, 'execute')
+
+        // Act
+        await createUserController.execute(httpRequest)
+
+        // Assert
+        expect(executeSpy).toHaveBeenCalledWith(httpRequest.body) // verifica se foi chamado com os parâmetros corretos
+        expect(executeSpy).toHaveBeenCalledTimes(1) // verifica se foi chamado apenas uma vez
     })
 })
