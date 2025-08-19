@@ -1,14 +1,10 @@
 // src\controllers\transaction\update-transaction.js
+import { ZodError } from 'zod'
 import { UserNotFoundError } from '../../errors/user.js'
+import { updateTransactionSchema } from '../../schemas/transactions.js'
 import {
     badRequest,
-    checkIfAmountIsValid,
-    checkIfDateIsValid,
     checkIfIdIsValid,
-    checkIfIsTypeValid,
-    invalidAmountResponse,
-    invalidDateResponse,
-    invalidTypeResponse,
     ok,
     serverError,
     userNotFoundResponse,
@@ -29,41 +25,7 @@ export class UpdateTransactionController {
 
             const params = httpRequest.body
 
-            const allowedFields = ['name', 'date', 'amount', 'type']
-
-            const someFieldIsNotAllowed = Object.keys(params).some(
-                (field) => !allowedFields.includes(field),
-            )
-
-            if (someFieldIsNotAllowed) {
-                return badRequest({
-                    message: 'Some provided fields are not allowed',
-                })
-            }
-
-            // VALIDAÇÃO DA DATA (adicione este bloco)
-            if (params.date) {
-                const dateIsValid = checkIfDateIsValid(params.date)
-                if (!dateIsValid) {
-                    return invalidDateResponse()
-                }
-            }
-
-            if (params.amount) {
-                const amountIsValid = checkIfAmountIsValid(params.amount)
-
-                if (!amountIsValid) {
-                    return invalidAmountResponse()
-                }
-            }
-
-            if (params.type) {
-                const typeIsValid = checkIfIsTypeValid(params.type)
-
-                if (!typeIsValid) {
-                    return invalidTypeResponse()
-                }
-            }
+            await updateTransactionSchema.parseAsync(params)
 
             const updatedTransaction =
                 await this.updateTransactionUseCase.execute(
@@ -73,6 +35,9 @@ export class UpdateTransactionController {
 
             return ok(updatedTransaction)
         } catch (error) {
+            if (error instanceof ZodError) {
+                return badRequest(error)
+            }
             // Adicione esta verificação
             if (error instanceof UserNotFoundError) {
                 return userNotFoundResponse()
