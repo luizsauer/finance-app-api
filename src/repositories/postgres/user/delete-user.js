@@ -10,7 +10,11 @@ export class PostgresDeleteUserRepository {
                 },
             })
         } catch (error) {
-            throw new Error('Error deleting user')
+            if (error.code === 'P2003') {
+                throw new Error('Cannot delete user with existing transactions')
+            }
+            console.error('Prisma delete error:', error)
+            throw error
         }
     }
 }

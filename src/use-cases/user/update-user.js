@@ -3,11 +3,11 @@ import EmailAlreadyInUseError from '../../errors/user.js'
 
 export class UpdateUserUseCase {
     constructor(
-        userRepository,
+        updateUserRepository,
         getUserByEmailRepository,
         passwordHasherAdapter,
     ) {
-        this.userRepository = userRepository
+        this.updateUserRepository = updateUserRepository
         this.getUserByEmailRepository = getUserByEmailRepository
         this.passwordHasherAdapter = passwordHasherAdapter
     }
@@ -45,7 +45,10 @@ export class UpdateUserUseCase {
         }
 
         // call the repository to update the user
-        const updatedUser = await this.userRepository.execute(userId, user)
+        const updatedUser = await this.updateUserRepository.execute(
+            userId,
+            user,
+        )
         return updatedUser
     }
 }

@@ -4,12 +4,12 @@ import EmailAlreadyInUseError from '../../errors/user.js'
 
 export class CreateUserUseCase {
     constructor(
-        userRepository,
+        createUserRepository,
         getUserByEmailRepository,
         passwordHasherAdapter,
         idGeneratorAdapter,
     ) {
-        this.userRepository = userRepository
+        this.createUserRepository = createUserRepository
         this.getUserByEmailRepository = getUserByEmailRepository
         this.passwordHasherAdapter = passwordHasherAdapter
         this.idGeneratorAdapter = idGeneratorAdapter
@@ -42,7 +42,7 @@ export class CreateUserUseCase {
 
         // call the repository to create the user
 
-        const createUser = await this.userRepository.execute(user)
+        const createUser = await this.createUserRepository.execute(user)
 
         return createUser
     }
