@@ -3,7 +3,7 @@ import EmailAlreadyInUseError from '../../errors/user.js'
 
 import { ZodError } from 'zod'
 import { createUserSchema } from '../../schemas/user.js'
-import { badRequest, created, internalServerError } from '../helpers/index.js'
+import { badRequest, created, serverError } from '../helpers/index.js'
 
 export class CreateUserController {
     constructor(createUserUseCase) {
@@ -30,7 +30,7 @@ export class CreateUserController {
                 return badRequest({ message: error.message })
             }
             console.error('Error creating user', error)
-            return internalServerError(error)
+            return serverError(error)
         }
     }
 }
