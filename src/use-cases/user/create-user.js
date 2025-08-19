@@ -1,12 +1,17 @@
 // src\use-cases\create-user.js
-import bcrypt from 'bcryptjs'
+
 import { v4 as uuidv4 } from 'uuid'
 import EmailAlreadyInUseError from '../../errors/user.js'
 
 export class CreateUserUseCase {
-    constructor(userRepository, getUserByEmailRepository) {
+    constructor(
+        userRepository,
+        getUserByEmailRepository,
+        passwordHasherAdapter,
+    ) {
         this.userRepository = userRepository
         this.getUserByEmailRepository = getUserByEmailRepository
+        this.passwordHasherAdapter = passwordHasherAdapter
     }
 
     async execute(userData) {
@@ -23,7 +28,9 @@ export class CreateUserUseCase {
         const userId = uuidv4()
 
         // Hash the password before saving
-        const hashedPassword = await bcrypt.hash(userData.password, 10)
+        const hashedPassword = await this.passwordHasherAdapter.execute(
+            userData.password,
+        )
 
         // Create the user using the repository
         const user = {

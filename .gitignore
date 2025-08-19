@@ -1,23 +1,18 @@
-# Dependency directories
+#*  Dependency directories
 node_modules
 
-# Environment variables
+#* Environment variables
 .env
 
-# Postgres volume
+#* Postgres volume
 .postgres-data
 
-/src/generated/prisma
+#* Tests
 coverage
+
+#* Build output
+/src/generated/prisma
+
+#* Miscellaneous
 .husky
-coverage/clover.xml
-coverage/coverage-final.json
-coverage/lcov.info
-coverage/lcov-report/block-navigation.js
-coverage/lcov-report/index.html
-coverage/lcov-report/prettify.js
-coverage/lcov-report/sorter.js
-coverage/lcov-report/controllers/user/index.html
-coverage/lcov-report/errors/index.html
-coverage/lcov-report/errors/user.js.html
-.husky/pre-commit
+

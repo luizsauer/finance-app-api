@@ -72,7 +72,7 @@ describe('GetUserBalanceController', () => {
         // })
     })
 
-    it('should return 404 if user is invalid', async () => {
+    it('should return 404 if GetUserBalanceUseCase throws UserNotFoundError', async () => {
         // Test implementation
         // Arrange
         const { sut, getUserBalanceUseCase } = makeSut()

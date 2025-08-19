@@ -1,4 +1,5 @@
 // src\factories\controllers\user.js
+import { PasswordHasherAdapter } from '../../adapters/index.js'
 import {
     CreateUserController,
     DeleteUserController,
@@ -32,9 +33,11 @@ export const makeUserByIdController = () => {
 export const makeCreateUserController = () => {
     const getUserByEmailRepository = new GetUserByEmailRepository()
     const createUserRepository = new PostgresCreateUserRepository()
+    const passwordHasherAdapter = new PasswordHasherAdapter() // Importing the PasswordHasherAdapter
     const createUserUseCase = new CreateUserUseCase(
         createUserRepository,
         getUserByEmailRepository,
+        passwordHasherAdapter,
     )
     const createUserController = new CreateUserController(createUserUseCase)
     return createUserController
