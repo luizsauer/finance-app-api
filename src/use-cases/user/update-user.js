@@ -1,11 +1,15 @@
 // src\use-cases\update-user.js
-import bcrypt from 'bcryptjs'
 import EmailAlreadyInUseError from '../../errors/user.js'
 
 export class UpdateUserUseCase {
-    constructor(userRepository, getUserByEmailRepository) {
+    constructor(
+        userRepository,
+        getUserByEmailRepository,
+        passwordHasherAdapter,
+    ) {
         this.userRepository = userRepository
         this.getUserByEmailRepository = getUserByEmailRepository
+        this.passwordHasherAdapter = passwordHasherAdapter
     }
 
     async execute(userId, updateUserParams) {
@@ -28,9 +32,8 @@ export class UpdateUserUseCase {
         // se a senha estiver sendo alterada, precisamos garantir que a nova senha atenda aos requisitos de segurança
         if (updateUserParams.password) {
             // Hash the password before saving
-            const hashedPassword = await bcrypt.hash(
+            const hashedPassword = await this.passwordHasherAdapter.execute(
                 updateUserParams.password,
-                10,
             )
             user.password = hashedPassword
         }
