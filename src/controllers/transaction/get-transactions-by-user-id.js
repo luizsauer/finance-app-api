@@ -39,7 +39,7 @@ export class GetTransactionsByUserIdController {
             if (error instanceof UserNotFoundError) {
                 return userNotFoundResponse()
             }
-            return serverError()
+            return serverError(error)
         }
     }
 }
