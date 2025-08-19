@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { UserNotFoundError } from '../../errors/user'
 import { GetUserBalanceController } from './get-user-balance'
 
 describe('GetUserBalanceController', () => {
@@ -79,7 +80,7 @@ describe('GetUserBalanceController', () => {
         // Act
 
         jest.spyOn(getUserBalanceUseCase, 'execute').mockRejectedValueOnce(
-            new Error('User with ID invalid-id not found'),
+            new UserNotFoundError(httpRequest.params.userId),
         )
 
         // Act
