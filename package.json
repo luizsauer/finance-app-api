@@ -4,7 +4,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "jest",
+        "test": "jest --passWithNoTests --runInBand --silent --coverage",
         "test:watch": "jest --watch --passWithNoTests --runInBand --silent --coverage --detectOpenHandles",
         "test:coverage": "jest --coverage",
         "postinstall": "npx husky install && npx prisma generate",
