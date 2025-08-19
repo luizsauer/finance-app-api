@@ -175,12 +175,12 @@ describe('Create User Controller', () => {
     it('should return 500 if CreateUserUseCase throws', async () => {
         // Test implementation
         // Arrange
-        class CreateUserUseCaseErrorStub {
-            execute() {
-                throw new Error('Use case error')
-            }
-        }
-        const createUserUseCase = new CreateUserUseCaseErrorStub()
+        // class CreateUserUseCaseErrorStub {
+        //     execute() {
+        //         throw new Error('Use case error')
+        //     }
+        // }
+        const createUserUseCase = new CreateUserUseCaseStub()
         const createUserController = new CreateUserController(createUserUseCase)
 
         const httpRequest = {
@@ -193,6 +193,10 @@ describe('Create User Controller', () => {
                 }),
             },
         }
+        // altera o comportamento da função 'execute' para lançar um erro
+        jest.spyOn(createUserUseCase, 'execute').mockImplementation(() => {
+            throw new Error('Use case error')
+        })
 
         // Act
         const result = await createUserController.execute(httpRequest)
@@ -225,5 +229,29 @@ describe('Create User Controller', () => {
         // Assert
         expect(executeSpy).toHaveBeenCalledWith(httpRequest.body) // verifica se foi chamado com os parâmetros corretos
         expect(executeSpy).toHaveBeenCalledTimes(1) // verifica se foi chamado apenas uma vez
+    })
+
+    it('should return 400 if ZodError occurs', async () => {
+        // Test implementation
+        // Arrange
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: 'invalid-email',
+                password: faker.internet.password({
+                    length: 8, // Ensure password is at least 8 characters
+                }),
+            },
+        }
+
+        // Act
+        const result = await createUserController.execute(httpRequest)
+
+        // Assert
+        expect(result.statusCode).toBe(400)
     })
 })
