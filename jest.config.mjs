@@ -4,7 +4,7 @@ const config = {
     coverageDirectory: 'coverage',
     coverageProvider: 'v8',
     collectCoverageFrom: ['src/**/*.js'],
-    coveragePathIgnorePatterns: ['/src/generated/prisma/'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/src/generated/prisma/'],
 }
 
 export default config

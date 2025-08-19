@@ -2,7 +2,13 @@
 import validator from 'validator'
 import { badRequest } from './http.js'
 
-export const checkIfIdIsValid = (id) => validator.isUUID(id)
+export const checkIfIdIsValid = (id) => {
+    if (!id || !validator.isUUID(id)) {
+        console.error(`Invalid ID: ${id}`)
+        return invalidIdResponse()
+    }
+    return null
+}
 
 export const invalidIdResponse = () =>
     badRequest({
