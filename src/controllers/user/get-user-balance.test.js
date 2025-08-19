@@ -91,4 +91,14 @@ describe('GetUserBalanceController', () => {
         //     error: `User with ID ${httpRequest.params.userId} invalid.`,
         // })
     })
+
+    it('should call GetUserBalanceUseCase with correct params', async () => {
+        const { sut, getUserBalanceUseCase } = makeSut()
+
+        const executeSpy = jest.spyOn(getUserBalanceUseCase, 'execute')
+
+        await sut.execute(httpRequest)
+
+        expect(executeSpy).toHaveBeenCalledWith(httpRequest.params.userId)
+    })
 })

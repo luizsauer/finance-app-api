@@ -6,7 +6,6 @@
     "scripts": {
         "test": "jest --passWithNoTests --runInBand --silent --coverage",
         "test:watch": "jest --watch --passWithNoTests --runInBand --silent --coverage --detectOpenHandles",
-        "test:coverage": "jest --coverage",
         "postinstall": "npx husky install && npx prisma generate",
         "start:dev": "node --watch index.js"
     },
