@@ -22,10 +22,10 @@ export class DeleteUserController {
 
             const deletedUser = await this.deleteUserUseCase.execute(userId)
 
-            if (deletedUser.length === 0) {
+            if (!deletedUser) {
                 return userNotFoundResponse()
             }
-            return ok({ message: 'User deleted successfully' })
+            return ok(deletedUser)
         } catch (error) {
             console.error('Error executing delete user', error)
             return serverError(error)
