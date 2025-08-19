@@ -4,7 +4,7 @@ import { DeleteUserController } from './delete-user.js'
 
 describe('DeleteUserController', () => {
     class DeleteUserUseCaseStub {
-        execute() {
+        async execute() {
             return {
                 id: faker.string.uuid(),
                 first_name: faker.person.firstName(),
@@ -66,7 +66,7 @@ describe('DeleteUserController', () => {
         // Arrange
         const { sut, deleteUserUseCase } = makeSut()
 
-        jest.spyOn(deleteUserUseCase, 'execute').mockReturnValueOnce(null)
+        jest.spyOn(deleteUserUseCase, 'execute').mockResolvedValue(null)
 
         // Act
         const result = await sut.execute(httpRequest)
@@ -83,9 +83,9 @@ describe('DeleteUserController', () => {
         // Arrange
         const { sut, deleteUserUseCase } = makeSut()
 
-        jest.spyOn(deleteUserUseCase, 'execute').mockImplementationOnce(() => {
-            throw new Error('Internal Server Error')
-        })
+        jest.spyOn(deleteUserUseCase, 'execute').mockRejectedValueOnce(
+            new Error('Internal Server Error'),
+        )
 
         // Act
         const result = await sut.execute(httpRequest)

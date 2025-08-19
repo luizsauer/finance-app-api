@@ -6,7 +6,7 @@ import { CreateUserController } from './create-user.js'
 
 describe('Create User Controller', () => {
     class CreateUserUseCaseStub {
-        execute(user) {
+        async execute(user) {
             return user
         }
     }
@@ -144,9 +144,9 @@ describe('Create User Controller', () => {
         const { sut, createUserUseCase } = makeSut()
 
         // altera o comportamento da função 'execute' para lançar um erro
-        jest.spyOn(createUserUseCase, 'execute').mockImplementation(() => {
-            throw new Error('Use case error')
-        })
+        jest.spyOn(createUserUseCase, 'execute').mockRejectedValueOnce(
+            new Error('Use case error'),
+        )
 
         // Act
         const result = await sut.execute(httpRequest)
@@ -186,9 +186,9 @@ describe('Create User Controller', () => {
             },
         }
 
-        jest.spyOn(createUserUseCase, 'execute').mockImplementation(() => {
-            throw new EmailAlreadyInUseError(httpRequest.body.email)
-        })
+        jest.spyOn(createUserUseCase, 'execute').mockRejectedValueOnce(
+            new EmailAlreadyInUseError(httpRequest.body.email),
+        )
 
         // Act
         const result = await sut.execute(httpRequest)
@@ -196,24 +196,4 @@ describe('Create User Controller', () => {
         // Assert
         expect(result.statusCode).toBe(400)
     })
-
-    // user not found error
-    // it('should return 404 if user is not found', async () => {
-    //     // Test implementation
-    //     // Arrange
-    //     const { sut, createUserUseCase } = makeSut()
-
-    //     jest.spyOn(createUserUseCase, 'execute').mockRejectedValueOnce(
-    //         new UserNotFoundError(httpRequest.body.email),
-    //     )
-
-    //     // Act
-    //     const result = await sut.execute(httpRequest)
-
-    //     // Assert
-    //     expect(result.statusCode).toBe(404)
-    //     expect(result.body).toEqual({
-    //         error: `User with ID ${httpRequest.body.email} not found.`,
-    //     })
-    // })
 })
