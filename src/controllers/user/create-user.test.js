@@ -10,11 +10,17 @@ describe('Create User Controller', () => {
             return user
         }
     }
+
+    const makeSut = () => {
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const sut = new CreateUserController(createUserUseCase)
+        return { sut, createUserUseCase }
+    }
+
     it('should return 201 when creating a user successfully', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -28,7 +34,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(201)
@@ -38,8 +44,7 @@ describe('Create User Controller', () => {
     it('should return 400 if first_name is not provided', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -52,7 +57,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -61,8 +66,7 @@ describe('Create User Controller', () => {
     it('should return 400 if last_name is not provided', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -75,7 +79,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -84,8 +88,7 @@ describe('Create User Controller', () => {
     it('should return 400 if email is not provided', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -98,7 +101,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -107,8 +110,7 @@ describe('Create User Controller', () => {
     it('should return 400 if email is invalid', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -122,7 +124,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -131,8 +133,7 @@ describe('Create User Controller', () => {
     it('should return 400 if password is not provided', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -143,7 +144,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -152,8 +153,7 @@ describe('Create User Controller', () => {
     it('should return 400 if password is less than 6 characters', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -167,7 +167,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -181,8 +181,7 @@ describe('Create User Controller', () => {
         //         throw new Error('Use case error')
         //     }
         // }
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut, createUserUseCase } = makeSut()
 
         const httpRequest = {
             body: {
@@ -200,7 +199,7 @@ describe('Create User Controller', () => {
         })
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(500) // verifica se o statusCode é 500 - erro interno do servidor
@@ -209,8 +208,7 @@ describe('Create User Controller', () => {
     it('should call CreateUserUseCase with correct values', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut, createUserUseCase } = makeSut()
 
         const httpRequest = {
             body: {
@@ -225,7 +223,7 @@ describe('Create User Controller', () => {
         const executeSpy = jest.spyOn(createUserUseCase, 'execute') // espiona a função execute,
 
         // Act
-        await createUserController.execute(httpRequest)
+        await sut.execute(httpRequest)
 
         // Assert
         expect(executeSpy).toHaveBeenCalledWith(httpRequest.body) // verifica se foi chamado com os parâmetros corretos
@@ -235,8 +233,7 @@ describe('Create User Controller', () => {
     it('should return 400 if ZodError occurs', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut } = makeSut()
 
         const httpRequest = {
             body: {
@@ -250,7 +247,7 @@ describe('Create User Controller', () => {
         }
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -259,8 +256,7 @@ describe('Create User Controller', () => {
     it('should return 500 if CreateUserUseCase throws EmailAlreadyInUseError', async () => {
         // Test implementation
         // Arrange
-        const createUserUseCase = new CreateUserUseCaseStub()
-        const createUserController = new CreateUserController(createUserUseCase)
+        const { sut, createUserUseCase } = makeSut()
 
         const httpRequest = {
             body: {
@@ -278,7 +274,7 @@ describe('Create User Controller', () => {
         })
 
         // Act
-        const result = await createUserController.execute(httpRequest)
+        const result = await sut.execute(httpRequest)
 
         // Assert
         expect(result.statusCode).toBe(400)
