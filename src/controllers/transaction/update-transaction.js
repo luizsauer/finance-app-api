@@ -1,16 +1,18 @@
 // src\controllers\transaction\update-transaction.js
+import { UserNotFoundError } from '../../errors/user.js'
 import {
     badRequest,
-    checkIfIdIsValid,
-    ok,
-    serverError,
-} from '../helpers/index.js'
-import {
     checkIfAmountIsValid,
+    checkIfDateIsValid,
+    checkIfIdIsValid,
     checkIfIsTypeValid,
     invalidAmountResponse,
+    invalidDateResponse,
     invalidTypeResponse,
-} from '../helpers/transaction.js'
+    ok,
+    serverError,
+    userNotFoundResponse,
+} from '../helpers/index.js'
 
 export class UpdateTransactionController {
     constructor(updateTransactionUseCase) {
@@ -39,6 +41,14 @@ export class UpdateTransactionController {
                 })
             }
 
+            // VALIDAÇÃO DA DATA (adicione este bloco)
+            if (params.date) {
+                const dateIsValid = checkIfDateIsValid(params.date)
+                if (!dateIsValid) {
+                    return invalidDateResponse()
+                }
+            }
+
             if (params.amount) {
                 const amountIsValid = checkIfAmountIsValid(params.amount)
 
@@ -63,6 +73,10 @@ export class UpdateTransactionController {
 
             return ok(updatedTransaction)
         } catch (error) {
+            // Adicione esta verificação
+            if (error instanceof UserNotFoundError) {
+                return userNotFoundResponse()
+            }
             return serverError(error)
         }
     }

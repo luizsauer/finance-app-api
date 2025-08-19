@@ -1,5 +1,5 @@
 import validator from 'validator'
-import { notFound } from './index.js'
+import { badRequest, notFound } from './index.js'
 
 export const checkIfAmountIsValid = (amount) => {
     if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
@@ -39,3 +39,16 @@ export const invalidTypeResponse = () => {
 export const transactionNotFoundResponse = () => {
     return notFound('Transaction not found.')
 }
+
+export const checkIfDateIsValid = (date) => {
+    // Verifica se é uma string e se pode ser convertida para Date válido
+    if (typeof date !== 'string') return false
+
+    const parsedDate = new Date(date)
+    return !isNaN(parsedDate.getTime()) // Retorna true se for uma data válida
+}
+
+export const invalidDateResponse = () =>
+    badRequest({
+        message: 'Date must be a valid ISO string',
+    })
