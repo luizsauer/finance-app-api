@@ -59,7 +59,9 @@ describe('DeleteUserController', () => {
         // Arrange
         const { sut, deleteUserUseCase } = makeSut()
 
-        jest.spyOn(deleteUserUseCase, 'execute').mockResolvedValue(null)
+        jest.spyOn(deleteUserUseCase, 'execute').mockRejectedValueOnce(
+            new UserNotFoundError(httpRequest.params.userId),
+        )
 
         // Act
         const result = await sut.execute(httpRequest)

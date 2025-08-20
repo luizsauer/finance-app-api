@@ -8,6 +8,10 @@ const config = {
     globalSetup: '<rootDir>/jest.global-setup.js',
     setupFilesAfterEnv: ['<rootDir>/jest.setup-after-env.js'],
     // globalTeardown: '<rootDir>/jest.global-teardown.js',
+    watchPathIgnorePatterns: [
+        '<rootDir>/node_modules/',
+        '<rootDir>/docker-data/', // exemplo
+    ],
 }
 
 export default config

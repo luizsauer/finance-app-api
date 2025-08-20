@@ -1,5 +1,7 @@
 // src\repositories\postgres\delete-user.js
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { prisma } from '../../../../prisma/prisma.js'
+import { UserNotFoundError } from '../../../errors/user.js'
 
 export class PostgresDeleteUserRepository {
     async execute(userId) {
@@ -10,10 +12,11 @@ export class PostgresDeleteUserRepository {
                 },
             })
         } catch (error) {
-            if (error.code === 'P2003') {
-                throw new Error('Cannot delete user with existing transactions')
+            if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code === 'P2025') {
+                    throw new UserNotFoundError(userId)
+                }
             }
-            console.error('Prisma delete error:', error)
             throw error
         }
     }

@@ -1,4 +1,5 @@
 // src\controllers\transaction\delete-transaction.js
+import { TransactionNotFoundError } from '../../errors/transaction.js'
 import { checkIfIdIsValid, ok, serverError } from '../helpers/index.js'
 import { transactionNotFoundResponse } from '../helpers/transaction.js'
 
@@ -23,14 +24,12 @@ export class DeleteTransactionController {
 
             console.log('o:', deletedTransaction)
 
-            if (!deletedTransaction) {
-                console.warn('uir')
-                return transactionNotFoundResponse()
-            }
-
             return ok(deletedTransaction)
         } catch (error) {
-            console.error('Error in DeleteTransactionController:', error)
+            if (error instanceof TransactionNotFoundError) {
+                return transactionNotFoundResponse()
+            }
+            console.error(error)
             return serverError(error)
         }
     }
