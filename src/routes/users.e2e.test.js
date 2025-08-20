@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { TransactionType } from '@prisma/client'
 import request from 'supertest'
 import { app } from '../app.js'
 import { user } from '../tests/index.js'
@@ -61,7 +62,7 @@ describe('User Routes E2E Tests', () => {
         expect(response.body.password).not.toBe(updateUserParams.password) // deve estar hasheada
     })
 
-    it('DELETE /api/users should return 204 when user is deleted', async () => {
+    it('DELETE /api/users should return 200 when user is deleted', async () => {
         const { body: createdUser } = await request(app)
             .post('/api/users')
             .send({
@@ -73,6 +74,56 @@ describe('User Routes E2E Tests', () => {
             `/api/users/${createdUser.id}`,
         )
 
-        expect(response.status).toBe(204)
+        expect(response.status).toBe(200)
+        expect(response.body).toEqual(createdUser)
+    })
+
+    it('BALANCE /api/users should return 200 when user balance is fetched', async () => {
+        const { body: createdUser } = await request(app)
+            .post('/api/users')
+            .send({
+                ...user,
+                id: undefined,
+            })
+
+        // Cria transação de earning
+        await request(app).post('/api/transactions').send({
+            user_id: createdUser.id,
+            name: faker.commerce.productName(),
+            date: faker.date.anytime().toISOString(),
+            type: TransactionType.EARNING,
+            amount: 10000,
+        })
+
+        // Cria transação de expense
+        await request(app).post('/api/transactions').send({
+            user_id: createdUser.id,
+            name: faker.commerce.productName(),
+            date: faker.date.anytime().toISOString(),
+            type: TransactionType.EXPENSE,
+            amount: 2000,
+        })
+
+        // Cria transação de investment
+        await request(app).post('/api/transactions').send({
+            user_id: createdUser.id,
+            name: faker.commerce.productName(),
+            date: faker.date.anytime().toISOString(),
+            type: TransactionType.INVESTMENT,
+            amount: 2000,
+        })
+
+        // Consulta saldo
+        const response = await request(app).get(
+            `/api/users/${createdUser.id}/balance`,
+        )
+
+        expect(response.status).toBe(200)
+        expect(response.body).toEqual({
+            earnings: '10000',
+            expenses: '2000',
+            investments: '2000',
+            balance: '6000',
+        })
     })
 })
