@@ -35,15 +35,30 @@ describe('PostgresUpdateTransactionRepository', () => {
         expect(dayjs(result.date).year()).toBe(dayjs(params.date).year())
     })
 
-    it('should call Prisma with correct params', async () => {})
+    it('should call Prisma with correct params', async () => {
+        await prisma.user.create({ data: user })
+        await prisma.transaction.create({
+            data: { ...transaction, user_id: user.id },
+        })
+        const sut = new PostgresUpdateTransactionRepository()
+        const prismaSpy = jest.spyOn(prisma.transaction, 'update')
 
-    it('should throw if Prisma throws', async () => {})
+        await sut.execute(transaction.id, { ...transaction, user_id: user.id })
 
-    // it('should return null if user has no transactions', async () => {
+        expect(prismaSpy).toHaveBeenCalledWith({
+            where: { id: transaction.id },
+            data: { ...transaction, user_id: user.id },
+        })
+    })
 
-    // })
+    it('should throw if Prisma throws', async () => {
+        const sut = new PostgresUpdateTransactionRepository()
+        jest.spyOn(prisma.transaction, 'update').mockRejectedValueOnce(
+            new Error('Prisma error'),
+        )
 
-    // it('should return null if transaction does not exist', async () => {
+        const promise = sut.execute(transaction.id, transaction)
 
-    // })
+        await expect(promise).rejects.toThrow('Prisma error')
+    })
 })
