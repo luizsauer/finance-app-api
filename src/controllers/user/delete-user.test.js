@@ -1,19 +1,12 @@
 import { faker } from '@faker-js/faker'
 import { UserNotFoundError } from '../../errors/user.js'
+import { user } from '../../tests/index.js'
 import { DeleteUserController } from './delete-user.js'
 
 describe('DeleteUserController', () => {
     class DeleteUserUseCaseStub {
         async execute() {
-            return {
-                id: faker.string.uuid(),
-                first_name: faker.person.firstName(),
-                last_name: faker.person.lastName(),
-                email: faker.internet.email(),
-                password: faker.internet.password({
-                    length: 8, // Ensure password is at least 8 characters
-                }),
-            }
+            return user
         }
     }
 
