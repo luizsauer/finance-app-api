@@ -1,8 +1,14 @@
 // src\app.js
 import express from 'express'
-
+import fs from 'fs'
+import path from 'path'
+import swaggerUi from 'swagger-ui-express'
+import { fileURLToPath } from 'url'
 // import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
 import { transactionsRouter, usersRouter } from './routes/index.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export const app = express() // Initialize Express app
 
@@ -19,6 +25,13 @@ app.use(express.json()) // Middleware to parse JSON bodies -> faz o parsing de J
 
 app.use('/api/users', usersRouter)
 app.use('/api/transactions', transactionsRouter)
+
+// Swagger documentation
+const swaggerDocument = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '../docs/swagger.json'), 'utf-8'),
+)
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // logs
 app.use((req, res, next) => {
