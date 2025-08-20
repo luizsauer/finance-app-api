@@ -31,6 +31,18 @@ describe('PostgresDeleteUserRepository', () => {
         expect(prismaSpy).toHaveBeenCalledWith({ where: { id: user.id } })
     })
 
+    it('should throw if Prisma throws', async () => {
+        const sut = new PostgresDeleteUserRepository()
+
+        jest.spyOn(prisma.user, 'delete').mockRejectedValueOnce(
+            new Error('Prisma error'),
+        )
+
+        const promise = sut.execute(user.id)
+
+        await expect(promise).rejects.toThrow('Prisma error')
+    })
+
     // it('should throw if user does not exist', async () => {
     //     // Test implementation
     //     // Arrange

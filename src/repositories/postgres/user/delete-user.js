@@ -18,3 +18,7 @@ export class PostgresDeleteUserRepository {
         }
     }
 }
+
+// import { UserNotFoundError } from '../../../errors/user.js'
+
+// throw new UserNotFoundError()
