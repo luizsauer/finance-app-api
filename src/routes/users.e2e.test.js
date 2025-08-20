@@ -126,4 +126,51 @@ describe('User Routes E2E Tests', () => {
             balance: '6000',
         })
     })
+
+    it('GET /api/users/:userId should return 404 when user is not found', async () => {
+        const response = await request(app).get(
+            `/api/users/${faker.string.uuid()}`,
+        )
+
+        expect(response.status).toBe(404)
+    })
+
+    it('GET /api/users/:userId/balance should return 404 when user is not found', async () => {
+        const response = await request(app).get(
+            `/api/users/${faker.string.uuid()}/balance`,
+        )
+
+        expect(response.status).toBe(404)
+    })
+
+    it('GET /api/users/:userId should return 404 when user is not found', async () => {
+        const response = await request(app).get(
+            `/api/users/${faker.string.uuid()}`,
+        )
+
+        expect(response.status).toBe(404)
+    })
+
+    it('GET /api/users/:userId/balance should return 404 when user is not found', async () => {
+        const response = await request(app).get(
+            `/api/users/${faker.string.uuid()}/balance`,
+        )
+
+        expect(response.status).toBe(404)
+    })
+
+    it('PATCH /api/users/:userId should return 404 when user is not found', async () => {
+        const response = await request(app)
+            .patch(`/api/users/${faker.string.uuid()}`)
+            .send({
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 8,
+                }),
+            })
+
+        expect(response.status).toBe(404)
+    })
 })

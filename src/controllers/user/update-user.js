@@ -1,12 +1,13 @@
 // src\controllers\update-user.js
 import { ZodError } from 'zod'
-import EmailAlreadyInUseError from '../../errors/user.js'
+import EmailAlreadyInUseError, { UserNotFoundError } from '../../errors/user.js'
 import { updateUserSchema } from '../../schemas/user.js'
 import {
     badRequest,
     checkIfIdIsValid,
     ok,
     serverError,
+    userNotFoundResponse,
 } from '../helpers/index.js'
 export class UpdateUserController {
     constructor(updateUserUseCase) {
@@ -38,9 +39,15 @@ export class UpdateUserController {
             if (error instanceof ZodError) {
                 return badRequest({ message: error.issues[0].message })
             }
+
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message })
             }
+
+            if (error instanceof UserNotFoundError) {
+                return userNotFoundResponse()
+            }
+
             console.error('Error validating update user params', error)
             return serverError({ message: 'Error updating user', error })
         }
