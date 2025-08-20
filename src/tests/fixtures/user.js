@@ -11,6 +11,8 @@ export const user = {
         // max: 20,
         // numeric: true,
         // special: true,
+        // upper: 1,
+        // numbers: 1,
     }),
 }
 
