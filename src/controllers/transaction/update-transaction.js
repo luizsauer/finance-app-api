@@ -1,13 +1,13 @@
 // src\controllers\transaction\update-transaction.js
 import { ZodError } from 'zod'
-import { UserNotFoundError } from '../../errors/user.js'
+import { TransactionNotFoundError } from '../../errors/transaction.js'
 import { updateTransactionSchema } from '../../schemas/transactions.js'
 import {
     badRequest,
     checkIfIdIsValid,
     ok,
     serverError,
-    userNotFoundResponse,
+    transactionNotFoundResponse,
 } from '../helpers/index.js'
 
 export class UpdateTransactionController {
@@ -36,12 +36,13 @@ export class UpdateTransactionController {
             return ok(updatedTransaction)
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest(error)
+                return badRequest([{ message: error.issues[0].message }])
             }
             // Adicione esta verificação
-            if (error instanceof UserNotFoundError) {
-                return userNotFoundResponse()
+            if (error instanceof TransactionNotFoundError) {
+                return transactionNotFoundResponse()
             }
+            console.error(error)
             return serverError(error)
         }
     }
