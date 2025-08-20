@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1755695135479" clover="3.2.0">
-  <project timestamp="1755695135479" name="All files">
-    <metrics statements="21" coveredstatements="20" conditionals="10" coveredconditionals="4" methods="3" coveredmethods="2" elements="34" coveredelements="26" complexity="0" loc="21" ncloc="21" packages="2" files="2" classes="2"/>
+<coverage generated="1755696769411" clover="3.2.0">
+  <project timestamp="1755696769411" name="All files">
+    <metrics statements="41" coveredstatements="34" conditionals="12" coveredconditionals="5" methods="4" coveredmethods="3" elements="57" coveredelements="42" complexity="0" loc="41" ncloc="41" packages="2" files="3" classes="3"/>
     <package name="repositories.postgres.user">
-      <metrics statements="19" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="39" coveredstatements="33" conditionals="3" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="create-user.js" path="/home/sauer/dev/fullstackclub/finance-app-api/src/repositories/postgres/user/create-user.js">
         <metrics statements="19" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -12,19 +12,42 @@
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+      </file>
+      <file name="delete-user.js" path="/home/sauer/dev/fullstackclub/finance-app-api/src/repositories/postgres/user/delete-user.js">
+        <metrics statements="20" coveredstatements="14" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
+        <line num="12" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
     <package name="tests">
@@ -32,7 +55,7 @@
       <file name="index.js" path="/home/sauer/dev/fullstackclub/finance-app-api/src/tests/index.js">
         <metrics statements="2" coveredstatements="1" conditionals="9" coveredconditionals="3" methods="2" coveredmethods="1"/>
         <line num="1" count="0" type="cond" truecount="1" falsecount="3"/>
-        <line num="2" count="6" type="cond" truecount="2" falsecount="3"/>
+        <line num="2" count="11" type="cond" truecount="2" falsecount="3"/>
       </file>
     </package>
   </project>
