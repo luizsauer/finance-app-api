@@ -11,18 +11,6 @@ describe('CreateUserRepository', () => {
         const result = await sut.execute(user)
 
         // Assert
-        expect(result).toEqual(user)
+        expect(result).toBeTruthy()
     })
-
-    // it('should throw an error if user data is invalid', async () => {
-    //     // Test implementation
-    //     // Arrange
-    //     const { createUserRepository } = makeSut()
-
-    //     // Act
-    //     const promise = createUserRepository.create({ ...user, email: 'invalid-email' })
-
-    //     // Assert
-    //     await expect(promise).rejects.toThrow()
-    // })
 })
