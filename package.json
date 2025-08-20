@@ -4,8 +4,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "dotenv -e .env.test -- jest --passWithNoTests --silent --coverage",
+        "test": "dotenv -e .env.test -- jest --passWithNoTests --silent --runInBand",
         "test:watch": "npm run test -- --watch",
+        "test:coverage": "npm run test -- --coverage",
         "postinstall": "husky install && prisma generate",
         "start:dev": "node --watch index.js"
     },
@@ -32,6 +33,7 @@
     "dependencies": {
         "@prisma/client": "^6.14.0",
         "bcryptjs": "^3.0.2",
+        "dayjs": "^1.11.13",
         "dotenv": "^17.2.1",
         "dotenv-cli": "^10.0.0",
         "express": "^5.1.0",
