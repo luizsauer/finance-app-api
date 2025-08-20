@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1755717997980" clover="3.2.0">
-  <project timestamp="1755717997980" name="All files">
-    <metrics statements="1365" coveredstatements="1298" conditionals="358" coveredconditionals="241" methods="111" coveredmethods="106" elements="1834" coveredelements="1645" complexity="0" loc="1365" ncloc="1365" packages="18" files="52" classes="52"/>
+<coverage generated="1755718159853" clover="3.2.0">
+  <project timestamp="1755718159853" name="All files">
+    <metrics statements="1304" coveredstatements="1298" conditionals="356" coveredconditionals="241" methods="109" coveredmethods="106" elements="1769" coveredelements="1645" complexity="0" loc="1304" ncloc="1304" packages="16" files="50" classes="50"/>
     <package name="adapters">
       <metrics statements="23" coveredstatements="23" conditionals="12" coveredconditionals="6" methods="4" coveredmethods="4"/>
       <file name="id-generator.js" path="/home/sauer/dev/fullstackclub/finance-app-api/src/adapters/id-generator.js">
@@ -509,79 +509,6 @@
         <line num="46" count="1" type="stmt"/>
         <line num="47" count="9" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="db.postgres">
-      <metrics statements="27" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="helper.js" path="/home/sauer/dev/fullstackclub/finance-app-api/src/db/postgres/helper.js">
-        <metrics statements="27" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="db.postgres.migrations">
-      <metrics statements="34" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="exec.js" path="/home/sauer/dev/fullstackclub/finance-app-api/src/db/postgres/migrations/exec.js">
-        <metrics statements="34" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
       </file>
     </package>
     <package name="errors">

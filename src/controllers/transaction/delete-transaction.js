@@ -1,6 +1,12 @@
 // src\controllers\transaction\delete-transaction.js
 import { TransactionNotFoundError } from '../../errors/transaction.js'
-import { checkIfIdIsValid, ok, serverError } from '../helpers/index.js'
+import { UserNotFoundError } from '../../errors/user.js'
+import {
+    checkIfIdIsValid,
+    ok,
+    serverError,
+    userNotFoundResponse,
+} from '../helpers/index.js'
 import { transactionNotFoundResponse } from '../helpers/transaction.js'
 
 export class DeleteTransactionController {
@@ -28,6 +34,10 @@ export class DeleteTransactionController {
         } catch (error) {
             if (error instanceof TransactionNotFoundError) {
                 return transactionNotFoundResponse()
+            }
+
+            if (error instanceof UserNotFoundError) {
+                return userNotFoundResponse()
             }
             console.error(error)
             return serverError(error)

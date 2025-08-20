@@ -1,6 +1,6 @@
 // src\repositories\postgres\transaction\create-transaction.js
 
-import { PrismaClientKnownRequestError } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { prisma } from '../../../../prisma/prisma.js'
 import { TransactionNotFoundError } from '../../../errors/index.js'
 

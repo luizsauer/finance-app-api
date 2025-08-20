@@ -4,7 +4,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "dotenv -e .env.test -- jest --passWithNoTests --silent --runInBand",
+        "test": "dotenv -e .env.test -- jest --passWithNoTests --silent --runInBand --detectOpenHandles --forceExit",
         "test:watch": "npm run test -- --watch",
         "test:coverage": "npm run test -- --coverage",
         "postinstall": "husky install && prisma generate",
@@ -28,7 +28,8 @@
         "jest-watch-typeahead": "^3.0.1",
         "lint-staged": "^15.5.2",
         "prettier": "^3.6.2",
-        "prisma": "^6.14.0"
+        "prisma": "^6.14.0",
+        "supertest": "^7.1.4"
     },
     "dependencies": {
         "@prisma/client": "^6.14.0",
