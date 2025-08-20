@@ -8,6 +8,7 @@
         "/api/users": {
             "post": {
                 "summary": "Create a new user",
+                "tags": ["User"],
                 "parameters": [
                     {
                         "name": "user",
@@ -24,31 +25,83 @@
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
+                    },
+                    "400": {
+                        "description": "Invalid user data",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "User already exists",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             }
         }
     },
     "definitions": {
+        "CreateUserParams": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "example": "Josh"
+                },
+                "last_name": {
+                    "type": "string",
+                    "example": "Saas"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "josh.saas@mail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "password123"
+                }
+            },
+            "required": ["first_name", "last_name", "email", "password"]
+        },
         "User": {
             "type": "object",
             "properties": {
                 "id": {
                     "type": "string",
-                    "format": "uuid"
+                    "format": "uuid",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
                 },
                 "first_name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Josh"
                 },
                 "last_name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Saas"
                 },
                 "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "example": "josh.saas@mail.com"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "password123"
                 }
             },
             "required": ["first_name", "last_name", "email", "password"]
