@@ -7,5 +7,16 @@ export const user = {
     email: faker.internet.email(),
     password: faker.internet.password({
         length: 8,
+        // min: 8,
+        // max: 20,
+        // numeric: true,
+        // special: true,
     }),
+}
+
+export const userBalance = {
+    earnings: faker.finance.amount(),
+    expenses: faker.finance.amount(),
+    investments: faker.finance.amount(),
+    balance: faker.finance.amount(),
 }

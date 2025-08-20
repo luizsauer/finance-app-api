@@ -1,8 +1,12 @@
-import { faker } from '@faker-js/faker'
 import EmailAlreadyInUseError from '../../errors/user'
+import { user as fixtureUser } from '../../tests'
 import { CreateUserUseCase } from './create-user'
 
 describe('CreateUserUseCase', () => {
+    const user = {
+        ...fixtureUser,
+        id: undefined,
+    }
     class GetUserByEmailRepositoryStub {
         async execute() {
             return null // Simulate no user found
@@ -25,18 +29,6 @@ describe('CreateUserUseCase', () => {
         execute() {
             return 'generated_id'
         }
-    }
-    const user = {
-        first_name: faker.person.firstName(),
-        last_name: faker.person.lastName(),
-        email: faker.internet.email(),
-        password: faker.internet.password({
-            length: 7,
-            // min: 8,
-            // max: 20,
-            // numeric: true,
-            // special: true,
-        }),
     }
 
     const makeSut = () => {
@@ -96,7 +88,7 @@ describe('CreateUserUseCase', () => {
         expect(createUserRepositorySpy).toHaveBeenCalledWith({
             ...user,
             password: 'hashed_password',
-            id: expect.any(String),
+            id: user.id,
         })
     })
 
@@ -114,7 +106,7 @@ describe('CreateUserUseCase', () => {
         expect(createUserRepositorySpy).toHaveBeenCalledWith({
             ...user,
             password: 'hashed_password',
-            id: expect.any(String),
+            id: user.id,
         })
     })
 
