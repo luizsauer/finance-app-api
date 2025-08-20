@@ -1,49 +1,22 @@
-import { faker } from '@faker-js/faker'
 // import { UserNotFoundError } from '../../errors/user.js'
+import { transaction } from '../../tests/index.js'
 import { UpdateTransactionUseCase } from './update-transaction.js'
 
 describe('UpdateTransactionUseCase', () => {
-    const updateTransactionParams = {
-        id: faker.string.uuid(),
-        user_id: faker.string.uuid(),
-        date: faker.date.anytime().toISOString(),
-        type: 'EXPENSE',
-        amount: Number(faker.finance.amount()),
-    }
-    // const user = {
-    //     first_name: faker.person.firstName(),
-    //     last_name: faker.person.lastName(),
-    //     email: faker.internet.email(),
-    //     password: faker.internet.password({
-    //         length: 8,
-    //     }),
-    // }
-
     class UpdateTransactionRepositoryStub {
-        async execute(transactionId) {
-            return { id: transactionId, ...updateTransactionParams }
+        async execute() {
+            return transaction
         }
     }
-
-    // class GetUserByIdRepositoryStub {
-    //     async execute() {
-    //         return user
-    //     }
-    // }
 
     const makeSut = () => {
         const updateTransactionRepository =
             new UpdateTransactionRepositoryStub()
-        // const getUserByIdRepository = new GetUserByIdRepositoryStub()
-        const sut = new UpdateTransactionUseCase(
-            updateTransactionRepository,
-            // getUserByIdRepository,
-        )
+        const sut = new UpdateTransactionUseCase(updateTransactionRepository)
 
         return {
             sut,
             updateTransactionRepository,
-            // getUserByIdRepository,
         }
     }
 
@@ -51,21 +24,21 @@ describe('UpdateTransactionUseCase', () => {
     it('should update transaction successfully', async () => {
         const { sut } = makeSut()
 
-        const result = await sut.execute(updateTransactionParams)
+        const result = await sut.execute(transaction)
 
-        expect(result).toEqual({ ...updateTransactionParams })
+        expect(result).toEqual(transaction)
     })
 
     it('should call updateTransactionRepository with correct params', async () => {
         const { sut, updateTransactionRepository } = makeSut()
         const executeSpy = jest.spyOn(updateTransactionRepository, 'execute')
 
-        await sut.execute(updateTransactionParams.id, {
-            amount: updateTransactionParams.amount,
+        await sut.execute(transaction.id, {
+            amount: transaction.amount,
         })
 
-        expect(executeSpy).toHaveBeenCalledWith(updateTransactionParams.id, {
-            amount: updateTransactionParams.amount,
+        expect(executeSpy).toHaveBeenCalledWith(transaction.id, {
+            amount: transaction.amount,
         })
     })
 
@@ -76,8 +49,8 @@ describe('UpdateTransactionUseCase', () => {
             new Error(),
         )
 
-        const promise = sut.execute(updateTransactionParams.id, {
-            amount: updateTransactionParams.amount,
+        const promise = sut.execute(transaction.id, {
+            amount: transaction.amount,
         })
 
         await expect(promise).rejects.toThrow()
