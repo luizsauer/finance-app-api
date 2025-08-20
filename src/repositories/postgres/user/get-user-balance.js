@@ -1,5 +1,5 @@
 // src\repositories\postgres\user\get-user-balance.js
-import { Prisma } from '@prisma/client'
+import { Prisma, TransactionType } from '@prisma/client'
 import { prisma } from '../../../../prisma/prisma.js'
 
 export class PostgresGetUserBalanceRepository {
@@ -12,7 +12,7 @@ export class PostgresGetUserBalanceRepository {
             },
             where: {
                 user_id: userId,
-                type: 'EXPENSE',
+                type: TransactionType.EXPENSE,
             },
         })
 
@@ -24,7 +24,7 @@ export class PostgresGetUserBalanceRepository {
             },
             where: {
                 user_id: userId,
-                type: 'EARNING',
+                type: TransactionType.EARNING,
             },
         })
 
@@ -36,7 +36,7 @@ export class PostgresGetUserBalanceRepository {
             },
             where: {
                 user_id: userId,
-                type: 'INVESTMENT',
+                type: TransactionType.INVESTMENT,
             },
         })
         const _totalEarningsAmount =
