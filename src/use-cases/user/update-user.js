@@ -37,12 +37,12 @@ export class UpdateUserUseCase {
             )
             user.password = hashedPassword
         }
-        // se o nome estiver sendo alterado, precisamos garantir que o novo nome atenda aos requisitos de segurança
-        if (updateUserParams.first_name || updateUserParams.last_name) {
-            if (!updateUserParams.first_name || !updateUserParams.last_name) {
-                throw new Error('O nome completo deve incluir nome e sobrenome')
-            }
-        }
+        // // se o nome estiver sendo alterado, precisamos garantir que o novo nome atenda aos requisitos de segurança
+        // if (updateUserParams.first_name || updateUserParams.last_name) {
+        //     if (!updateUserParams.first_name || !updateUserParams.last_name) {
+        //         throw new Error('O nome completo deve incluir nome e sobrenome')
+        //     }
+        // }
 
         // call the repository to update the user
         const updatedUser = await this.updateUserRepository.execute(
