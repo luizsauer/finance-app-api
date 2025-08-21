@@ -60,9 +60,13 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         needs: migrate
+        environment: production
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+
+            - name: Check secret
+              run: echo "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
 
             - name: Deploy to production
               run: |
