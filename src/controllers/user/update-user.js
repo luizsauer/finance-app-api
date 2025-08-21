@@ -40,6 +40,11 @@ export class UpdateUserController {
                 return badRequest({ message: error.issues[0].message })
             }
 
+            if (error.code === 'P2025') {
+                // Prisma update/delete não encontrou registro
+                return userNotFoundResponse() // retorna 404
+            }
+
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message })
             }

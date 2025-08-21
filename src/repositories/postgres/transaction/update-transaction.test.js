@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { TransactionType } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import dayjs from 'dayjs'
@@ -6,7 +7,6 @@ import { prisma } from '../../../../prisma/prisma'
 import { TransactionNotFoundError } from '../../../errors/transaction.js'
 import { transaction, user } from '../../../tests'
 import { PostgresUpdateTransactionRepository } from './update-transaction.js'
-
 describe('PostgresUpdateTransactionRepository', () => {
     it('should update a transaction on db', async () => {
         await prisma.user.create({ data: user })

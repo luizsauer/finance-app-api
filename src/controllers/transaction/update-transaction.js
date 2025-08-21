@@ -38,6 +38,12 @@ export class UpdateTransactionController {
             if (error instanceof ZodError) {
                 return badRequest([{ message: error.issues[0].message }])
             }
+
+            if (error.code === 'P2025') {
+                // Prisma update/delete não encontrou registro
+                return transactionNotFoundResponse() // retorna 404
+            }
+
             // Adicione esta verificação
             if (error instanceof TransactionNotFoundError) {
                 return transactionNotFoundResponse()

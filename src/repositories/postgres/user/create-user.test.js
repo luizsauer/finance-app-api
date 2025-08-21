@@ -1,7 +1,7 @@
+import { jest } from '@jest/globals'
 import { prisma } from '../../../../prisma/prisma'
 import { user } from '../../../tests'
 import { PostgresCreateUserRepository } from './create-user'
-
 describe('CreateUserRepository', () => {
     it('should create a user on db', async () => {
         // Test implementation

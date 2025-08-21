@@ -1,8 +1,9 @@
+// src\routes\transactions.e2e.test.js
+
 import { TransactionType } from '@prisma/client'
 import request from 'supertest'
-import { app } from '../app.cjs'
+import { app } from '../app.js'
 import { transaction, user } from '../tests/index.js'
-
 describe('Transaction Routes E2E Tests', () => {
     it('POST /api/transactions should return 201 when transaction is created', async () => {
         const { body: createdUser } = await request(app)
@@ -99,7 +100,7 @@ describe('Transaction Routes E2E Tests', () => {
         expect(response.body.id).toBe(createdTransaction.id)
     })
 
-    it('PATCH /api/transaction/:transactionId should return 404 when updating a non-existing transaction', async () => {
+    it('PATCH /api/transactions/:transactionId should return 404 when updating a non-existing transaction', async () => {
         const response = await request(app)
             .patch(`/api/transactions/${transaction.id}`)
             .send({ amount: 200, type: TransactionType.EXPENSE })
@@ -107,7 +108,7 @@ describe('Transaction Routes E2E Tests', () => {
         expect(response.status).toBe(404)
     })
 
-    it('DELETE /api/transaction/:transactionId should return 404 when deleting a non-existing transaction', async () => {
+    it('DELETE /api/transactions/:transactionId should return 404 when deleting a non-existing transaction', async () => {
         const response = await request(app).delete(
             `/api/transactions/${transaction.id}`,
         )

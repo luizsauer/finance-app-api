@@ -1,7 +1,8 @@
+// src\routes\users.e2e.test.js
 import { faker } from '@faker-js/faker'
 import { TransactionType } from '@prisma/client'
 import request from 'supertest'
-import { app } from '../app.cjs'
+import { app } from '../app.js'
 import { user } from '../tests/index.js'
 
 describe('User Routes E2E Tests', () => {

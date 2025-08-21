@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { transaction } from '../../tests'
 import { DeleteTransactionUseCase } from './delete-transaction.js'
-
 describe('DeleteTransactionUseCase', () => {
     class DeleteTransactionRepositoryStub {
         async execute() {

@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { prisma } from '../../../../prisma/prisma'
 import { user as fakerUser } from '../../../tests'
 import { GetUserByEmailRepository } from './get-user-by-email.js'
-
 describe('GetUserByEmailRepository', () => {
     it('should return user if email exists', async () => {
         const user = await prisma.user.create({ data: fakerUser })

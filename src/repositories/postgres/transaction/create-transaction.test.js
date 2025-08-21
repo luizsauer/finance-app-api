@@ -1,8 +1,8 @@
+import { jest } from '@jest/globals'
 import dayjs from 'dayjs'
 import { prisma } from '../../../../prisma/prisma'
 import { transaction, user } from '../../../tests'
 import { PostgresCreateTransactionRepository } from './create-transaction.js'
-
 describe('PostgresCreateTransactionRepository', () => {
     it('should create a transaction on db', async () => {
         await prisma.user.create({ data: user })

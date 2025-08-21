@@ -1,3 +1,5 @@
+// babel.config.cjs
+
 module.exports = {
     presets: [
         [

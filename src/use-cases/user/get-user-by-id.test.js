@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { user } from '../../tests'
 import { GetUserByIdUseCase } from './get-user-by-id.js'
-
 describe('GetUserByIdUseCase', () => {
     class GetUserByIdRepositoryStub {
         async execute() {

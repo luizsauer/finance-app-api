@@ -1,10 +1,10 @@
+import { jest } from '@jest/globals'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import dayjs from 'dayjs'
 import { prisma } from '../../../../prisma/prisma'
 import { TransactionNotFoundError } from '../../../errors/transaction.js'
 import { transaction, user } from '../../../tests'
 import { PostgresDeleteTransactionRepository } from './delete-transaction.js'
-
 describe('PostgresDeleteTransactionRepository', () => {
     it('should delete a transaction on db', async () => {
         await prisma.user.create({ data: user })

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-
+import { jest } from '@jest/globals'
 import { user } from '../../tests'
 import { GetUserByIdController } from './get-user-by-id'
 

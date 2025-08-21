@@ -1,9 +1,9 @@
+import { jest } from '@jest/globals'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { prisma } from '../../../../prisma/prisma'
 import { UserNotFoundError } from '../../../errors/user.js'
 import { user } from '../../../tests'
 import { PostgresDeleteUserRepository } from './delete-user.js'
-
 describe('PostgresDeleteUserRepository', () => {
     it('should delete a user on db', async () => {
         // Test implementation

@@ -1,7 +1,7 @@
 // import { UserNotFoundError } from '../../errors/user.js'
+import { jest } from '@jest/globals'
 import { transaction } from '../../tests/index.js'
 import { UpdateTransactionUseCase } from './update-transaction.js'
-
 describe('UpdateTransactionUseCase', () => {
     class UpdateTransactionRepositoryStub {
         async execute() {

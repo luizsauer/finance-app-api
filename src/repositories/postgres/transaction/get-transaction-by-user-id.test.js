@@ -1,8 +1,8 @@
+import { jest } from '@jest/globals'
 import dayjs from 'dayjs'
 import { prisma } from '../../../../prisma/prisma'
 import { transaction, user } from '../../../tests'
 import { PostgresGetTransactionByUserIdRepository } from './get-transactions-by-user-id.js'
-
 describe('PostgresGetTransactionByUserIdRepository', () => {
     it('should return a transaction if it exists', async () => {
         await prisma.user.create({ data: user })

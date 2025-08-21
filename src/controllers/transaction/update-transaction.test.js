@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { TransactionNotFoundError } from '../../errors/transaction.js'
 import { transaction } from '../../tests/index.js'
 import { UpdateTransactionController } from './update-transaction.js'
-
 describe('UpdateTransactionController', () => {
     class UpdateTransactionUseCaseStub {
         async execute() {

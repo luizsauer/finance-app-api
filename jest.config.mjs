@@ -1,3 +1,5 @@
+// jest.config.mjs
+
 /** @type {import('jest').Config} */
 const config = {
     verbose: true,
@@ -12,6 +14,10 @@ const config = {
         '<rootDir>/node_modules/',
         '<rootDir>/docker-data/',
     ],
+    testEnvironment: 'node',
+    transform: {
+        '^.+\\.jsx?$': 'babel-jest',
+    },
 }
 
 export default config

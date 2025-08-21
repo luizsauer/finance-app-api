@@ -36,6 +36,11 @@ export class DeleteTransactionController {
                 return transactionNotFoundResponse()
             }
 
+            if (error.code === 'P2025') {
+                // Prisma update/delete não encontrou registro
+                return transactionNotFoundResponse() // retorna 404
+            }
+
             if (error instanceof UserNotFoundError) {
                 return userNotFoundResponse()
             }

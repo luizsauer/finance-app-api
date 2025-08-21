@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { UserNotFoundError } from '../../errors/user'
 import { GetUserBalanceController } from './get-user-balance'
-
 describe('GetUserBalanceController', () => {
     class GetUserBalanceUseCaseStub {
         async execute() {

@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { prisma } from '../../../../prisma/prisma'
 import { UserNotFoundError } from '../../../errors/user.js'
 import { user as fakerUser } from '../../../tests'
 import { PostgresUpdateUserRepository } from './update-user.js'
-
 describe('PostgresUpdateUserRepository', () => {
     const updateUserParams = {
         id: faker.string.uuid(),

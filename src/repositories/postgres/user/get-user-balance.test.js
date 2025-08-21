@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { TransactionType } from '@prisma/client'
 import { prisma } from '../../../../prisma/prisma'
 import { user as fakerUser } from '../../../tests'
 import { PostgresGetUserBalanceRepository } from './get-user-balance.js'
-
 describe('PostgresGetUserBalanceRepository', () => {
     it('should get user balance on db', async () => {
         const user = await prisma.user.create({ data: fakerUser })

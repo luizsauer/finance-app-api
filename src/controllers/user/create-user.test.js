@@ -1,10 +1,10 @@
 // src\controllers\user\create-user.test.js
 
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import EmailAlreadyInUseError from '../../errors/user.js'
 import { user } from '../../tests/index.js'
 import { CreateUserController } from './create-user.js'
-
 describe('Create User Controller', () => {
     class CreateUserUseCaseStub {
         async execute() {

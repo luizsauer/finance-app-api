@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { UserNotFoundError } from '../../errors/user.js'
 import { user } from '../../tests'
 import { GetTransactionsByUserIdUseCase } from './get-transactions-by-user-id.js'
-
 describe('GetTransactionsByUserIdUseCase', () => {
     class getTransactionsByUserIdRepositoryStub {
         async execute() {

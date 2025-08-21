@@ -1,6 +1,5 @@
 import validator from 'validator'
 import { IdGeneratorAdapter } from './id-generator'
-
 describe('IdGeneratorAdapter', () => {
     it('should generate a valid UUID', async () => {
         const sut = new IdGeneratorAdapter()

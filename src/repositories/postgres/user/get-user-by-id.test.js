@@ -1,7 +1,7 @@
+import { jest } from '@jest/globals'
 import { prisma } from '../../../../prisma/prisma'
 import { user as fakerUser } from '../../../tests'
 import { PostgresGetUserByIdRepository } from './get-user-by-id.js'
-
 describe('PostgresGetUserByIdRepository', () => {
     it('should return user if id exists', async () => {
         const user = await prisma.user.create({ data: fakerUser })

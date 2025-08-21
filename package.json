@@ -4,7 +4,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "dotenv -e .env.test -- jest --passWithNoTests --silent --runInBand --detectOpenHandles --forceExit",
+        "test": "cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test -- jest --passWithNoTests --silent --runInBand --detectOpenHandles --forceExit",
         "test:watch": "npm run test -- --watch",
         "test:coverage": "npm run test -- --coverage",
         "postinstall": "husky install && prisma generate",
@@ -24,6 +24,7 @@
         "@babel/preset-env": "^7.28.3",
         "@faker-js/faker": "^9.9.0",
         "babel-jest": "^30.0.5",
+        "cross-env": "^7.0.3",
         "eslint": "8.2",
         "eslint-config-prettier": "^10.1.8",
         "git-commit-msg-linter": "^5.0.8",

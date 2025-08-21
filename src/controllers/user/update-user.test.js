@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import EmailAlreadyInUseError, { UserNotFoundError } from '../../errors/user'
 import { user } from '../../tests'
 import { UpdateUserController } from './update-user'
-
 describe('UpdateUserController', () => {
     class UpdateUserUseCaseStub {
         async execute() {

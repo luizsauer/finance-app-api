@@ -1,7 +1,7 @@
+import { jest } from '@jest/globals'
 import { UserNotFoundError } from '../../errors/user.js'
 import { transaction, user } from '../../tests'
 import { CreateTransactionUseCase } from './create-transaction.js'
-
 describe('CreateTransactionUseCase', () => {
     const createTransactionParams = {
         ...transaction,

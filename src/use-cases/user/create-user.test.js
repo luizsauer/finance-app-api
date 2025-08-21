@@ -1,7 +1,7 @@
+import { jest } from '@jest/globals'
 import EmailAlreadyInUseError from '../../errors/user'
 import { user as fixtureUser } from '../../tests'
 import { CreateUserUseCase } from './create-user'
-
 describe('CreateUserUseCase', () => {
     const user = {
         ...fixtureUser,

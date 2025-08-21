@@ -1,3 +1,5 @@
+// jest.global-setup.js
+
 import { execSync } from 'child_process'
 
 async function init() {

@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
+import { jest } from '@jest/globals'
 import { UserNotFoundError } from '../../errors/user.js'
 import { user } from '../../tests/index.js'
 import { DeleteUserController } from './delete-user.js'
-
 describe('DeleteUserController', () => {
     class DeleteUserUseCaseStub {
         async execute() {
