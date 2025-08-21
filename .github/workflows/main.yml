@@ -55,7 +55,7 @@ jobs:
               run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
 
             - name: Run migrations
-              run: npm run migrate deploy
+              run: npm run migrate:deploy
 #   build:
 #     runs-on: ubuntu-latest
 #     steps:
