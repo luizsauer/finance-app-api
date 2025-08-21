@@ -53,6 +53,42 @@
                 }
             }
         },
+        "/api/users/{user_id}/balance": {
+            "get": {
+                "summary": "Get user balance by user Id",
+                "tags": ["User"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "The ID of the user to retrieve balance for"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User balance retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/UserBalance"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFoundResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/users/{user_id}": {
             "get": {
                 "summary": "Get user by ID",
@@ -223,6 +259,27 @@
                 }
             },
             "required": ["first_name", "last_name", "email", "password"]
+        },
+        "UserBalance": {
+            "type": "object",
+            "properties": {
+                "earning": {
+                    "type": "string",
+                    "example": "1000"
+                },
+                "expenses": {
+                    "type": "string",
+                    "example": "1050"
+                },
+                "investments": {
+                    "type": "string",
+                    "example": "2000"
+                },
+                "balance": {
+                    "type": "string",
+                    "example": "950"
+                }
+            }
         },
         "UserNotFoundResponse": {
             "type": "object",
