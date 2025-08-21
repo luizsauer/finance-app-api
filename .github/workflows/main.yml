@@ -51,10 +51,8 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Make envfile
-              uses: SpicyPizza/create-envfile@v2.0
-              with:
-                  envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            - name: Create .env file
+              run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
 
             - name: Run migrations
               run: npm run migrate deploy
