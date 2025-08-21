@@ -29,25 +29,25 @@
                     "400": {
                         "description": "Invalid user data",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/InvalidUserDataResponse"
                         }
                     },
                     "404": {
                         "description": "User not found",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/UserNotFoundResponse"
                         }
                     },
                     "409": {
                         "description": "User already exists",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/UserAlreadyExistsResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
@@ -77,13 +77,47 @@
                     "404": {
                         "description": "User not found",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/UserNotFoundResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete user by ID",
+                "tags": ["User"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "The ID of the user to delete"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "User deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFoundResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
@@ -141,6 +175,42 @@
                 }
             },
             "required": ["first_name", "last_name", "email", "password"]
+        },
+        "UserNotFoundResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "User not found"
+                }
+            }
+        },
+        "InternalServerErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Internal server error"
+                }
+            }
+        },
+        "InvalidUserDataResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Invalid user data"
+                }
+            }
+        },
+        "UserAlreadyExistsResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "User already exists"
+                }
+            }
         }
     }
 }
