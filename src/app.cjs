@@ -1,16 +1,16 @@
-// src\app.js
-import express from 'express'
-import fs from 'fs'
-import path from 'path'
-import swaggerUi from 'swagger-ui-express'
-import { fileURLToPath } from 'url'
+// src\app.cjs
+const express = require('express') 
+const { transactionsRouter, usersRouter } = require('./routes/index.js')
+const swaggerUi = require('swagger-ui-express')
+const fs = require('fs')
+const path = require('path')
+const { fileURLToPath } = require('url')
 // import { PostgresHelper } from './src/db/postgres/helper.js' // Importing the pool from helper.js
-import { transactionsRouter, usersRouter } from './routes/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export const app = express() // Initialize Express app
+const app = express() // Initialize Express app
 
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
@@ -38,3 +38,5 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`)
     next()
 })
+
+module.exports = { app } // Export the app for use in other files

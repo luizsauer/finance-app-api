@@ -1,6 +1,6 @@
 import { TransactionType } from '@prisma/client'
 import request from 'supertest'
-import { app } from '../app.js'
+import { app } from '../app.cjs'
 import { transaction, user } from '../tests/index.js'
 
 describe('Transaction Routes E2E Tests', () => {

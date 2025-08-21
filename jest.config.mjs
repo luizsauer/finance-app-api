@@ -10,7 +10,7 @@ const config = {
     // globalTeardown: '<rootDir>/jest.global-teardown.js',
     watchPathIgnorePatterns: [
         '<rootDir>/node_modules/',
-        '<rootDir>/docker-data/', // exemplo
+        '<rootDir>/docker-data/',
     ],
 }
 
