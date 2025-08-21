@@ -283,14 +283,14 @@
                 }
             }
         },
-        "/api/transactions/{transaction_id}": {
+        "/api/transactions/{transactionId}": {
             "delete": {
                 "summary": "Delete transaction by ID",
                 "tags": ["Transaction"],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "transaction_id",
+                        "name": "transactionId",
                         "required": true,
                         "type": "string",
                         "format": "uuid",
@@ -324,7 +324,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "transaction_id",
+                        "name": "transactionId",
                         "required": true,
                         "type": "string",
                         "format": "uuid",
