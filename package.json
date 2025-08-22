@@ -31,7 +31,6 @@
         "cross-env": "^7.0.3",
         "eslint": "9.33",
         "eslint-config-prettier": "^10.1.8",
-        "git-commit-msg-linter": "^5.0.8",
         "husky": "^9.1.7",
         "jest": "^30.0.5",
         "jest-watch-typeahead": "^3.0.1",
