@@ -1,0 +1,14 @@
+{
+    "types": [
+        "feat",
+        "fix",
+        "chore",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test"
+    ],
+    "minSubjectLength": 3,
+    "maxSubjectLength": 50
+}
