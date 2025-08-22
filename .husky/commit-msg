@@ -1,9 +1,3 @@
 # .husky/commit-msg
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-.git/hooks/commit-msg $1
-if [ $? -ne 0 ]; then
-    echo "Commit message validation failed."
-    exit 1
-fi
+npx --no-install git-commit-msg-linter "$1"
