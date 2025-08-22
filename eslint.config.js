@@ -11,21 +11,21 @@ export default [
 
     // Configuração para todos os arquivos de código
     {
-        files: ['*.js', '*.jsx', '*.cjs', '*.mjs', '*.ts', '*.tsx'],
+        // files: ['*.js', '*.jsx', '*.cjs', '*.mjs', '*.ts', '*.tsx'],
+        files: ['**/*.js'],
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',
             globals: {
-                ...globals.node,
                 ...globals.browser,
+                ...globals.jest,
+                ...globals.node,
             },
         },
-        plugins: ['prettier'],
-        rules: {
-            'prettier/prettier': 'error',
-            'no-console': 'off',
-            'no-undef': 'off',
-        },
+        // plugins: ['prettier'],
+        // rules: {
+        //     'prettier/prettier': 'error',
+        // },
     },
 
     // Configuração para arquivos de teste (Jest)
@@ -34,7 +34,6 @@ export default [
         languageOptions: {
             globals: {
                 ...globals.node,
-                ...globals.browser,
                 ...globals.jest, // Adiciona globais do Jest
             },
         },
