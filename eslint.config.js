@@ -34,7 +34,7 @@ export default [
         languageOptions: {
             globals: {
                 ...globals.node,
-                ...globals.jest, // Adiciona globais do Jest
+                ...globals.jest,
             },
         },
     },
