@@ -1,12 +1,15 @@
 // src\factories\controllers\user.js
 import {
     IdGeneratorAdapter,
+    PasswordComparatorAdapter,
     PasswordHasherAdapter,
+    TokenGeneratorAdapter,
 } from '../../adapters/index.js'
 import {
     CreateUserController,
     DeleteUserController,
     GetUserByIdController,
+    LoginUserController,
     UpdateUserController,
 } from '../../controllers/index.js' // Importing the CreateUserController
 import {
@@ -20,6 +23,7 @@ import {
     CreateUserUseCase,
     DeleteUserUseCase,
     GetUserByIdUseCase,
+    LoginUserUseCase,
     UpdateUserUseCase,
 } from '../../use-cases/index.js' // Importing the GetUserByIdUseCase
 
@@ -67,4 +71,17 @@ export const makeDeleteUserController = () => {
     const deleteUserUseCase = new DeleteUserUseCase(deleteUserRepository)
     const deleteUserController = new DeleteUserController(deleteUserUseCase)
     return deleteUserController
+}
+
+export const makeLoginUserController = () => {
+    const tokensGenerator = new TokenGeneratorAdapter()
+    const passwordComparator = new PasswordComparatorAdapter()
+    const getUserByEmailRepository = new GetUserByEmailRepository()
+    const loginUserUseCase = new LoginUserUseCase(
+        getUserByEmailRepository,
+        passwordComparator,
+        tokensGenerator,
+    )
+    const loginUserController = new LoginUserController(loginUserUseCase)
+    return loginUserController
 }

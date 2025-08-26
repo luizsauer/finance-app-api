@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export class TokenGeneratiorAdapter {
+export class TokenGeneratorAdapter {
     execute(userId) {
         return {
             accessToken: jwt.sign(
