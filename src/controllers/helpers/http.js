@@ -24,3 +24,10 @@ export const serverError = (error) => ({
         error: error.message,
     },
 })
+
+export const unauthorized = () => ({
+    statusCode: 401,
+    body: {
+        message: 'Unauthorized',
+    },
+})
