@@ -82,7 +82,7 @@ describe('User Routes E2E Tests', () => {
         expect(response.body.id).toBe(createdUser.id)
     })
 
-    it('GET /api/users/:userId/balance should return 200 when user balance is fetched', async () => {
+    it('GET /api/users/:user_id/balance should return 200 when user balance is fetched', async () => {
         const { body: createdUser } = await request(app)
             .post('/api/users')
             .send({
@@ -140,7 +140,7 @@ describe('User Routes E2E Tests', () => {
         })
     })
 
-    // it('GET /api/users/:userId should return 404 when user is not found', async () => {
+    // it('GET /api/users/:user_id should return 404 when user is not found', async () => {
     //     const response = await request(app).get(
     //         `/api/users/${faker.string.uuid()}`,
     //     )
@@ -148,7 +148,7 @@ describe('User Routes E2E Tests', () => {
     //     expect(response.status).toBe(404)
     // })
 
-    // it('GET /api/users/:userId/balance should return 404 when user is not found', async () => {
+    // it('GET /api/users/:user_id/balance should return 404 when user is not found', async () => {
     //     const response = await request(app).get(
     //         `/api/users/${faker.string.uuid()}/balance`,
     //     )
@@ -156,7 +156,7 @@ describe('User Routes E2E Tests', () => {
     //     expect(response.status).toBe(404)
     // })
 
-    // it('GET /api/users/:userId should return 404 when user is not found', async () => {
+    // it('GET /api/users/:user_id should return 404 when user is not found', async () => {
     //     const response = await request(app).get(
     //         `/api/users/${faker.string.uuid()}`,
     //     )
@@ -164,7 +164,7 @@ describe('User Routes E2E Tests', () => {
     //     expect(response.status).toBe(404)
     // })
 
-    // it('GET /api/users/:userId/balance should return 404 when user is not found', async () => {
+    // it('GET /api/users/:user_id/balance should return 404 when user is not found', async () => {
     //     const response = await request(app).get(
     //         `/api/users/${faker.string.uuid()}/balance`,
     //     )
@@ -172,7 +172,7 @@ describe('User Routes E2E Tests', () => {
     //     expect(response.status).toBe(404)
     // })
 
-    // it('PATCH /api/users/:userId should return 404 when user is not found', async () => {
+    // it('PATCH /api/users/:user_id should return 404 when user is not found', async () => {
     //     const response = await request(app)
     //         .patch(`/api/users/${faker.string.uuid()}`)
     //         .send({

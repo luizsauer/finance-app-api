@@ -19,7 +19,7 @@ usersRouter.get('/', auth, async (req, res) => {
     // console.log('User Authenticated:', req.user.id)
     const { statusCode, body } = await getUserByIdController.execute({
         ...req,
-        params: { userId: req.userId },
+        params: { user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)
@@ -31,7 +31,7 @@ usersRouter.get('/balance', auth, async (req, res) => {
 
     const { statusCode, body } = await getUserBalanceController.execute({
         ...req,
-        params: { userId: req.userId },
+        params: { user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)
@@ -52,7 +52,7 @@ usersRouter.patch('/', auth, async (req, res) => {
 
     const { statusCode, body } = await updateUserController.execute({
         ...req,
-        params: { userId: req.userId },
+        params: { user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)
@@ -64,7 +64,7 @@ usersRouter.delete('/', auth, async (req, res) => {
 
     const { statusCode, body } = await deleteUserController.execute({
         ...req,
-        params: { userId: req.userId },
+        params: { user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)

@@ -4,11 +4,11 @@ import { prisma } from '../../../../prisma/prisma.js'
 import { UserNotFoundError } from '../../../errors/user.js'
 
 export class PostgresUpdateUserRepository {
-    async execute(userId, updateUserParams) {
+    async execute(user_id, updateUserParams) {
         try {
             return await prisma.user.update({
                 where: {
-                    id: userId,
+                    id: user_id,
                 },
                 data: {
                     ...updateUserParams,
@@ -17,7 +17,7 @@ export class PostgresUpdateUserRepository {
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code === 'P2025') {
-                    throw new UserNotFoundError(userId)
+                    throw new UserNotFoundError(user_id)
                 }
             }
             throw error

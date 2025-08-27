@@ -29,12 +29,12 @@ describe('GetUserByIdUseCase', () => {
 
     it('should call getUserByIdRepository with correct params', async () => {
         const { sut, getUserByIdRepository } = makeSut()
-        const userId = faker.string.uuid()
+        const user_id = faker.string.uuid()
         const executeSpy = jest.spyOn(getUserByIdRepository, 'execute')
 
-        await sut.execute(userId)
+        await sut.execute(user_id)
 
-        expect(executeSpy).toHaveBeenCalledWith(userId)
+        expect(executeSpy).toHaveBeenCalledWith(user_id)
     })
 
     it('should throw if getUserByIdRepository throws', async () => {

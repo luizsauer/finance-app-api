@@ -35,7 +35,7 @@ describe('UpdateTransactionUseCase', () => {
     it('should update transaction successfully', async () => {
         const { sut } = makeSut()
 
-        const result = await sut.execute(transaction)
+        const result = await sut.execute(transaction.id, transaction)
 
         expect(result).toEqual(transaction)
     })

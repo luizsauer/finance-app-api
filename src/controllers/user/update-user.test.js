@@ -16,7 +16,7 @@ describe('UpdateUserController', () => {
         return { sut, updateUserUseCase }
     }
     const httpRequest = {
-        params: { userId: faker.string.uuid() },
+        params: { user_id: faker.string.uuid() },
         body: {
             first_name: faker.person.firstName(),
             last_name: faker.person.lastName(),
@@ -46,7 +46,7 @@ describe('UpdateUserController', () => {
 
         // Act
         const result = await sut.execute({
-            params: { userId: 'invalid-id' },
+            params: { user_id: 'invalid-id' },
         })
 
         // Assert
@@ -60,7 +60,7 @@ describe('UpdateUserController', () => {
 
         // Act
         const result = await sut.execute({
-            params: { userId: faker.string.uuid() },
+            params: { user_id: faker.string.uuid() },
             body: {
                 email: 'invalid-email',
             },
@@ -77,7 +77,7 @@ describe('UpdateUserController', () => {
 
         // Act
         const result = await sut.execute({
-            params: { userId: faker.string.uuid() },
+            params: { user_id: faker.string.uuid() },
             body: {
                 password: faker.internet.password({
                     length: 5,
@@ -96,7 +96,7 @@ describe('UpdateUserController', () => {
 
         // Act
         const result = await sut.execute({
-            params: { userId: 'invalid_id' },
+            params: { user_id: 'invalid_id' },
             body: httpRequest.body,
         })
 
@@ -178,7 +178,7 @@ describe('UpdateUserController', () => {
         await sut.execute(httpRequest)
 
         expect(executeSpy).toHaveBeenCalledWith(
-            httpRequest.params.userId,
+            httpRequest.params.user_id,
             httpRequest.body,
         )
     })
@@ -191,7 +191,7 @@ describe('UpdateUserController', () => {
 
     //     // Act
     //     const result = await sut.execute({
-    //         params: { userId: faker.string.uuid() },
+    //         params: { user_id: faker.string.uuid() },
     //     })
 
     //     // Assert
@@ -208,7 +208,7 @@ describe('UpdateUserController', () => {
 
     //     // Act
     //     const result = await sut.execute({
-    //         params: { userId: faker.string.uuid() },
+    //         params: { user_id: faker.string.uuid() },
     //     })
 
     //     // Assert

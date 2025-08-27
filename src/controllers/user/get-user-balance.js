@@ -13,14 +13,14 @@ export class GetUserBalanceController {
 
     async execute(httpRequest) {
         try {
-            const userId = httpRequest.params.userId
+            const user_id = httpRequest.params.user_id
 
-            const idError = checkIfIdIsValid(userId)
+            const idError = checkIfIdIsValid(user_id)
             if (idError) {
                 return idError
             }
 
-            const balance = await this.getUserBalanceUseCase.execute(userId)
+            const balance = await this.getUserBalanceUseCase.execute(user_id)
 
             return ok(balance)
         } catch (error) {

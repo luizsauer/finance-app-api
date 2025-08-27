@@ -12,7 +12,7 @@ export class UpdateUserUseCase {
         this.passwordHasherAdapter = passwordHasherAdapter
     }
 
-    async execute(userId, updateUserParams) {
+    async execute(user_id, updateUserParams) {
         // se o email estivesse sido alterado, precisamos verificar se já existe um usuário com o novo email
         if (updateUserParams.email) {
             // verificar se o email já está em uso
@@ -22,7 +22,7 @@ export class UpdateUserUseCase {
                     updateUserParams.email,
                 )
 
-            if (userWithProvidedEmail && userWithProvidedEmail.id !== userId) {
+            if (userWithProvidedEmail && userWithProvidedEmail.id !== user_id) {
                 throw new EmailAlreadyInUseError(updateUserParams.email)
             }
         }
@@ -46,7 +46,7 @@ export class UpdateUserUseCase {
 
         // call the repository to update the user
         const updatedUser = await this.updateUserRepository.execute(
-            userId,
+            user_id,
             user,
         )
         return updatedUser

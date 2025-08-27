@@ -17,7 +17,7 @@ describe('GetUserBalanceController', () => {
 
     const httpRequest = {
         params: {
-            userId: faker.string.uuid(),
+            user_id: faker.string.uuid(),
         },
     }
 
@@ -32,7 +32,7 @@ describe('GetUserBalanceController', () => {
         // Assert
         expect(result.statusCode).toBe(200)
         // expect(result.body).toEqual({
-        //     userId: httpRequest.params.userId,
+        //     user_id: httpRequest.params.user_id,
         //     balance: expect.any(Number),
         // })
     })
@@ -43,12 +43,12 @@ describe('GetUserBalanceController', () => {
         const { sut } = makeSut()
 
         // Act
-        const result = await sut.execute({ params: { userId: 'invalid-id' } })
+        const result = await sut.execute({ params: { user_id: 'invalid-id' } })
 
         // Assert
         expect(result.statusCode).toBe(400)
         // expect(result.body).toEqual({
-        //     error: `User with ID ${httpRequest.params.userId} invalid.`,
+        //     error: `User with ID ${httpRequest.params.user_id} invalid.`,
         // })
     })
 
@@ -80,7 +80,7 @@ describe('GetUserBalanceController', () => {
         // Act
 
         jest.spyOn(getUserBalanceUseCase, 'execute').mockRejectedValueOnce(
-            new UserNotFoundError(httpRequest.params.userId),
+            new UserNotFoundError(httpRequest.params.user_id),
         )
 
         // Act
@@ -88,7 +88,7 @@ describe('GetUserBalanceController', () => {
         // Assert
         expect(result.statusCode).toBe(404)
         // expect(result.body).toEqual({
-        //     error: `User with ID ${httpRequest.params.userId} invalid.`,
+        //     error: `User with ID ${httpRequest.params.user_id} invalid.`,
         // })
     })
 
@@ -99,6 +99,6 @@ describe('GetUserBalanceController', () => {
 
         await sut.execute(httpRequest)
 
-        expect(executeSpy).toHaveBeenCalledWith(httpRequest.params.userId)
+        expect(executeSpy).toHaveBeenCalledWith(httpRequest.params.user_id)
     })
 })

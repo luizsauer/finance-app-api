@@ -1,6 +1,6 @@
 // src\use-cases\transaction\update-transaction.js
 
-import { ForbiddenError } from '../../errors/index.js'
+import { ForbiddenError, TransactionNotFoundError } from '../../errors/index.js'
 
 export class UpdateTransactionUseCase {
     constructor(updatedtransactionRepository, getTransactionByIdRepository) {
@@ -12,7 +12,11 @@ export class UpdateTransactionUseCase {
         const transaction =
             await this.getTransactionByIdRepository.execute(transactionId)
 
-        if (params.userId && transaction.user_id !== params.user_id) {
+        if (!transaction) {
+            throw new TransactionNotFoundError(transactionId)
+        }
+
+        if (params.user_id && transaction.user_id !== params.user_id) {
             throw new ForbiddenError()
         }
 

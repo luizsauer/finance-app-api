@@ -109,7 +109,7 @@ describe('PostgresGetUserBalanceRepository', () => {
 
     //     await prisma.transaction.create({
     //         data: {
-    //             userId: user.id,
+    //             user_id: user.id,
     //             amount: 5000,
     //             type: 'EARNING',
     //         },

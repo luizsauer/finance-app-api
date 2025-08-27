@@ -28,7 +28,7 @@ export class CreateUserUseCase {
         }
 
         // Generate a unique ID for the user
-        const userId = this.idGeneratorAdapter.execute()
+        const user_id = this.idGeneratorAdapter.execute()
 
         // Hash the password before saving
         const hashedPassword = await this.passwordHasherAdapter.execute(
@@ -37,7 +37,7 @@ export class CreateUserUseCase {
 
         // Create the user using the repository
         const user = {
-            id: userId,
+            id: user_id,
             ...userData,
             password: hashedPassword,
         }
@@ -48,7 +48,7 @@ export class CreateUserUseCase {
 
         return {
             ...createUser,
-            tokens: this.tokenGeneratorAdapter.execute(userId),
+            tokens: this.tokenGeneratorAdapter.execute(user_id),
         }
     }
 }

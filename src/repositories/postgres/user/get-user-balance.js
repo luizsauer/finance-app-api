@@ -3,7 +3,7 @@ import { Prisma, TransactionType } from '@prisma/client'
 import { prisma } from '../../../../prisma/prisma.js'
 
 export class PostgresGetUserBalanceRepository {
-    async execute(userId) {
+    async execute(user_id) {
         const {
             _sum: { amount: totalExpenseAmount },
         } = await prisma.transaction.aggregate({
@@ -11,7 +11,7 @@ export class PostgresGetUserBalanceRepository {
                 amount: true,
             },
             where: {
-                user_id: userId,
+                user_id: user_id,
                 type: TransactionType.EXPENSE,
             },
         })
@@ -23,7 +23,7 @@ export class PostgresGetUserBalanceRepository {
                 amount: true,
             },
             where: {
-                user_id: userId,
+                user_id: user_id,
                 type: TransactionType.EARNING,
             },
         })
@@ -35,7 +35,7 @@ export class PostgresGetUserBalanceRepository {
                 amount: true,
             },
             where: {
-                user_id: userId,
+                user_id: user_id,
                 type: TransactionType.INVESTMENT,
             },
         })
@@ -60,14 +60,14 @@ export class PostgresGetUserBalanceRepository {
     }
 }
 
-// async execute(userId) {
+// async execute(user_id) {
 //     const balance = await PostgresHelper.query(
 //         `SELECT * FROM get_user_balance($1)`,
-//         [userId],
+//         [user_id],
 //     )
 
 //     return {
-//         userId,
+//         user_id,
 //         ...balance[0],
 //     }
 // }

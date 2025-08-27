@@ -16,9 +16,9 @@ export class UpdateUserController {
 
     async execute(httpRequest) {
         try {
-            const userId = httpRequest.params.userId
+            const user_id = httpRequest.params.user_id
 
-            const idError = checkIfIdIsValid(userId)
+            const idError = checkIfIdIsValid(user_id)
             if (idError) {
                 return idError
             }
@@ -28,7 +28,7 @@ export class UpdateUserController {
             await updateUserSchema.parseAsync(updateUserParams)
 
             const updatedUser = await this.updateUserUseCase.execute(
-                userId,
+                user_id,
                 updateUserParams,
             )
             if (!updatedUser) {

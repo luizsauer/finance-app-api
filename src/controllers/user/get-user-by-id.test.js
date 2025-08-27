@@ -18,7 +18,7 @@ describe('GetUserByIdController', () => {
 
     const baseHttpRequest = {
         params: {
-            userId: faker.string.uuid(),
+            user_id: faker.string.uuid(),
         },
     }
 
@@ -41,7 +41,7 @@ describe('GetUserByIdController', () => {
 
         // Act
         const result = await sut.execute({
-            params: { userId: 'invalid-id' },
+            params: { user_id: 'invalid-id' },
         })
 
         // Assert
@@ -86,6 +86,6 @@ describe('GetUserByIdController', () => {
 
         await sut.execute(baseHttpRequest)
 
-        expect(executeSpy).toHaveBeenCalledWith(baseHttpRequest.params.userId)
+        expect(executeSpy).toHaveBeenCalledWith(baseHttpRequest.params.user_id)
     })
 })

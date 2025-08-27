@@ -20,7 +20,7 @@ transactionsRouter.get('/', auth, async (req, res) => {
     const { statusCode, body } =
         await getTransactionsByUserIdController.execute({
             ...req,
-            query: { ...req.query, userId: req.userId },
+            query: { ...req.query, user_id: req.user_id },
         })
 
     res.status(statusCode).send(body)
@@ -32,7 +32,7 @@ transactionsRouter.post('/', auth, async (req, res) => {
 
     const { statusCode, body } = await createTransactionController.execute({
         ...req,
-        body: { ...req.body, user_id: req.userId },
+        body: { ...req.body, user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)
@@ -44,7 +44,7 @@ transactionsRouter.patch('/:transactionId', auth, async (req, res) => {
 
     const { statusCode, body } = await updateTransactionController.execute({
         ...req,
-        body: { ...req.body, user_id: req.userId },
+        body: { ...req.body, user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)
@@ -56,7 +56,7 @@ transactionsRouter.delete('/:transactionId', auth, async (req, res) => {
 
     const { statusCode, body } = await deleteTransactionController.execute({
         ...req,
-        params: { ...req.params, userId: req.userId },
+        params: { ...req.params, user_id: req.user_id },
     })
 
     res.status(statusCode).send(body)

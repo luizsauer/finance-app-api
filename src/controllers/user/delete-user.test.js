@@ -18,7 +18,7 @@ describe('DeleteUserController', () => {
 
     const httpRequest = {
         params: {
-            userId: faker.string.uuid(),
+            user_id: faker.string.uuid(),
         },
     }
 
@@ -45,7 +45,7 @@ describe('DeleteUserController', () => {
         )
 
         // Act
-        const result = await sut.execute({ params: { userId: 'invalid-id' } })
+        const result = await sut.execute({ params: { user_id: 'invalid-id' } })
 
         // Assert
         expect(result.statusCode).toBe(400)
@@ -60,7 +60,7 @@ describe('DeleteUserController', () => {
         const { sut, deleteUserUseCase } = makeSut()
 
         jest.spyOn(deleteUserUseCase, 'execute').mockRejectedValueOnce(
-            new UserNotFoundError(httpRequest.params.userId),
+            new UserNotFoundError(httpRequest.params.user_id),
         )
 
         // Act
@@ -99,6 +99,6 @@ describe('DeleteUserController', () => {
 
         await sut.execute(httpRequest)
 
-        expect(executeSpy).toHaveBeenCalledWith(httpRequest.params.userId)
+        expect(executeSpy).toHaveBeenCalledWith(httpRequest.params.user_id)
     })
 })
