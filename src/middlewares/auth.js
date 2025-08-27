@@ -18,7 +18,7 @@ export const auth = (req, res, next) => {
             return res.status(401).send({ message: 'Access token missing' })
         }
 
-        req.userId = decodedToken.id
+        req.userId = decodedToken.userId
 
         next()
     } catch (error) {
