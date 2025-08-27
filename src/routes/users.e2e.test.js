@@ -91,31 +91,40 @@ describe('User Routes E2E Tests', () => {
             })
 
         // Cria transação de earning
-        await request(app).post('/api/transactions').send({
-            user_id: createdUser.id,
-            name: faker.commerce.productName(),
-            date: faker.date.anytime().toISOString(),
-            type: TransactionType.EARNING,
-            amount: 10000,
-        })
+        await request(app)
+            .post('/api/transactions')
+            .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
+            .send({
+                user_id: createdUser.id,
+                name: faker.commerce.productName(),
+                date: faker.date.anytime().toISOString(),
+                type: TransactionType.EARNING,
+                amount: 10000,
+            })
 
         // Cria transação de expense
-        await request(app).post('/api/transactions').send({
-            user_id: createdUser.id,
-            name: faker.commerce.productName(),
-            date: faker.date.anytime().toISOString(),
-            type: TransactionType.EXPENSE,
-            amount: 2000,
-        })
+        await request(app)
+            .post('/api/transactions')
+            .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
+            .send({
+                user_id: createdUser.id,
+                name: faker.commerce.productName(),
+                date: faker.date.anytime().toISOString(),
+                type: TransactionType.EXPENSE,
+                amount: 2000,
+            })
 
         // Cria transação de investment
-        await request(app).post('/api/transactions').send({
-            user_id: createdUser.id,
-            name: faker.commerce.productName(),
-            date: faker.date.anytime().toISOString(),
-            type: TransactionType.INVESTMENT,
-            amount: 2000,
-        })
+        await request(app)
+            .post('/api/transactions')
+            .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
+            .send({
+                user_id: createdUser.id,
+                name: faker.commerce.productName(),
+                date: faker.date.anytime().toISOString(),
+                type: TransactionType.INVESTMENT,
+                amount: 2000,
+            })
 
         // Consulta saldo
         const response = await request(app)

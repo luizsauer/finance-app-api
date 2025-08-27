@@ -1,4 +1,4 @@
-// import { UserNotFoundError } from '../../errors/user.js'
+// src\use-cases\transaction\update-transaction.test.js
 import { jest } from '@jest/globals'
 import { transaction } from '../../tests/index.js'
 import { UpdateTransactionUseCase } from './update-transaction.js'
@@ -9,14 +9,25 @@ describe('UpdateTransactionUseCase', () => {
         }
     }
 
+    class GetTransactionByIdStub {
+        async execute() {
+            return transaction
+        }
+    }
+
     const makeSut = () => {
         const updateTransactionRepository =
             new UpdateTransactionRepositoryStub()
-        const sut = new UpdateTransactionUseCase(updateTransactionRepository)
+        const getTransactionById = new GetTransactionByIdStub()
+        const sut = new UpdateTransactionUseCase(
+            updateTransactionRepository,
+            getTransactionById,
+        )
 
         return {
             sut,
             updateTransactionRepository,
+            getTransactionById,
         }
     }
 

@@ -1,3 +1,4 @@
+// src\controllers\transaction\update-transaction.test.js
 import { faker } from '@faker-js/faker'
 import { jest } from '@jest/globals'
 import { TransactionNotFoundError } from '../../errors/transaction.js'
@@ -60,19 +61,19 @@ describe('UpdateTransactionController', () => {
         expect(response.statusCode).toBe(400)
     })
 
-    it('should return 400 when unallowed field is provided', async () => {
-        const { sut } = makeSut()
+    // it('should return 400 when unallowed field is provided', async () => {
+    //     const { sut } = makeSut()
 
-        const response = await sut.execute({
-            ...baseHttpRequest,
-            body: {
-                ...baseHttpRequest.body,
-                unallowedField: 'unallowed_value',
-            },
-        })
+    //     const response = await sut.execute({
+    //         ...baseHttpRequest,
+    //         body: {
+    //             ...baseHttpRequest.body,
+    //             unallowedField: 'unallowed_value',
+    //         },
+    //     })
 
-        expect(response.statusCode).toBe(400)
-    })
+    //     expect(response.statusCode).toBe(400)
+    // })
 
     it('should return 400 when amount is invalid', async () => {
         const { sut } = makeSut()

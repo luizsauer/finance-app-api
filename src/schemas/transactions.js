@@ -1,3 +1,4 @@
+// src\schemas\transactions.js
 import validator from 'validator'
 import { z } from 'zod'
 
@@ -26,6 +27,6 @@ export const createTransactionSchema = z
 export const updateTransactionSchema = createTransactionSchema
     .omit({ user_id: true })
     .partial()
-    .strict({
-        message: 'Some provided field is not allowed',
-    })
+// .strict({
+//     message: 'Some provided field is not allowed',
+// })

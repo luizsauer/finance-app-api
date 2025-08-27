@@ -1,10 +1,12 @@
 // src\controllers\transaction\update-transaction.js
 import { ZodError } from 'zod'
+import { ForbiddenError } from '../../errors/index.js'
 import { TransactionNotFoundError } from '../../errors/transaction.js'
 import { updateTransactionSchema } from '../../schemas/transactions.js'
 import {
     badRequest,
     checkIfIdIsValid,
+    forbidden,
     ok,
     serverError,
     transactionNotFoundResponse,
@@ -42,6 +44,10 @@ export class UpdateTransactionController {
             if (error.code === 'P2025') {
                 // Prisma update/delete não encontrou registro
                 return transactionNotFoundResponse() // retorna 404
+            }
+
+            if (error instanceof ForbiddenError) {
+                return forbidden()
             }
 
             // Adicione esta verificação

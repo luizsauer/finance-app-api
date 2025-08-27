@@ -15,18 +15,18 @@ export class GetTransactionsByUserIdController {
     async execute(httpRequest) {
         try {
             // verificar se o userId foi passado como parametro
-            const { user_id } = httpRequest.query
-            if (!user_id) {
-                return requiredFieldIsMissingResponse('user_id')
+            const userId = httpRequest.query.userId
+            if (!userId) {
+                return requiredFieldIsMissingResponse('userId')
             }
             // verificar se o userId é um Id valido
-            const idError = checkIfIdIsValid(user_id)
+            const idError = checkIfIdIsValid(userId)
             if (idError) {
                 return idError
             }
             // chamar o use case
             const transactions =
-                await this.getTransactionsByUserIdUseCase.execute(user_id)
+                await this.getTransactionsByUserIdUseCase.execute(userId)
 
             return ok(transactions)
 
