@@ -8,20 +8,22 @@ import {
     makeUpdateUserController,
     makeUserByIdController,
 } from '../factories/controllers/user.js' // Importing the factory function to create the GetUserByIdController
+import { auth } from '../middlewares/auth.js'
 
 export const usersRouter = Router()
 
 // Get user by ID
-usersRouter.get('/:userId', async (req, res) => {
+usersRouter.get('/:userId', auth, async (req, res) => {
     const getUserByIdController = makeUserByIdController()
 
+    console.log('User Authenticated:', req.params.userId)
     const { statusCode, body } = await getUserByIdController.execute(req)
 
     res.status(statusCode).send(body)
 })
 
 // Get user balance
-usersRouter.get('/:userId/balance', async (req, res) => {
+usersRouter.get('/:userId/balance', auth, async (req, res) => {
     const getUserBalanceController = makeGetUserBalanceController()
 
     const { statusCode, body } = await getUserBalanceController.execute(req)
@@ -39,7 +41,7 @@ usersRouter.post('/', async (req, res) => {
 })
 
 // Update user
-usersRouter.patch('/:userId', async (req, res) => {
+usersRouter.patch('/:userId', auth, async (req, res) => {
     const updateUserController = makeUpdateUserController()
 
     const { statusCode, body } = await updateUserController.execute(req)
@@ -48,7 +50,7 @@ usersRouter.patch('/:userId', async (req, res) => {
 })
 
 // Delete User
-usersRouter.delete('/:userId', async (req, res) => {
+usersRouter.delete('/:userId', auth, async (req, res) => {
     const deleteUserController = makeDeleteUserController()
 
     const { statusCode, body } = await deleteUserController.execute(req)
@@ -57,6 +59,8 @@ usersRouter.delete('/:userId', async (req, res) => {
 })
 
 usersRouter.post('/login', async (req, res) => {
+    console.log('Body recebido:', req.body)
+    if (!req.body) return res.status(400).send({ message: 'Body vazio' })
     const loginUserController = makeLoginUserController()
 
     const { statusCode, body } = await loginUserController.execute(req)

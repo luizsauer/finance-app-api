@@ -1,3 +1,5 @@
+// src\controllers\user\login-user.js
+
 import { ZodError } from 'zod'
 import { InvalidPasswordError, UserNotFoundError } from '../../errors/user.js'
 import { loginSchema } from '../../schemas/user.js'
@@ -16,8 +18,8 @@ export class LoginUserController {
 
     async execute(httpRequest) {
         const params = httpRequest.body
-        await loginSchema.parseAsync(params)
         try {
+            await loginSchema.parseAsync(params)
             const user = await this.loginUserUseCase.execute(
                 params.email,
                 params.password,
@@ -26,7 +28,7 @@ export class LoginUserController {
         } catch (error) {
             if (error instanceof ZodError) {
                 return badRequest({
-                    message: error.errors[0].message,
+                    message: error.issues[0].message,
                 })
             }
             if (error instanceof InvalidPasswordError) {
