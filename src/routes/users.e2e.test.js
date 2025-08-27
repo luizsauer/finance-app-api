@@ -26,7 +26,7 @@ describe('User Routes E2E Tests', () => {
             })
 
         const response = await request(app)
-            .get(`/api/users/${createdUser.id}`)
+            .get(`/api/users`)
             .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
 
         expect(response.status).toBe(200)
@@ -51,7 +51,7 @@ describe('User Routes E2E Tests', () => {
         }
 
         const response = await request(app)
-            .patch(`/api/users/${createdUser.id}`)
+            .patch(`/api/users`)
             .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
             .send(updateUserParams)
 
@@ -75,7 +75,7 @@ describe('User Routes E2E Tests', () => {
             })
 
         const response = await request(app)
-            .delete(`/api/users/${createdUser.id}`)
+            .delete(`/api/users`)
             .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
 
         expect(response.status).toBe(200)
@@ -119,7 +119,7 @@ describe('User Routes E2E Tests', () => {
 
         // Consulta saldo
         const response = await request(app)
-            .get(`/api/users/${createdUser.id}/balance`)
+            .get(`/api/users/balance`)
             .set('Authorization', `Bearer ${createdUser.tokens.accessToken}`)
 
         expect(response.status).toBe(200)
