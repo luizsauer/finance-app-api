@@ -10,6 +10,7 @@ import {
     DeleteUserController,
     GetUserByIdController,
     LoginUserController,
+    RefreshTokenController,
     UpdateUserController,
 } from '../../controllers/index.js' // Importing the CreateUserController
 import {
@@ -24,6 +25,7 @@ import {
     DeleteUserUseCase,
     GetUserByIdUseCase,
     LoginUserUseCase,
+    RefreshTokenUseCase,
     UpdateUserUseCase,
 } from '../../use-cases/index.js' // Importing the GetUserByIdUseCase
 
@@ -86,4 +88,17 @@ export const makeLoginUserController = () => {
     )
     const loginUserController = new LoginUserController(loginUserUseCase)
     return loginUserController
+}
+
+export const makeRefreshTokenController = () => {
+    const tokensGeneratorAdapter = new TokenGeneratorAdapter()
+    const tokenVerifierAdapter = new TokenGeneratorAdapter()
+    const refreshTokenUseCase = new RefreshTokenUseCase(
+        tokensGeneratorAdapter,
+        tokenVerifierAdapter,
+    )
+    const refreshTokenController = new RefreshTokenController(
+        refreshTokenUseCase,
+    )
+    return refreshTokenController
 }

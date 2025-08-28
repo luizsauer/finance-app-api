@@ -5,6 +5,7 @@ import {
     makeCreateUserController,
     makeDeleteUserController,
     makeLoginUserController,
+    makeRefreshTokenController,
     makeUpdateUserController,
     makeUserByIdController,
 } from '../factories/controllers/user.js' // Importing the factory function to create the GetUserByIdController
@@ -76,6 +77,16 @@ usersRouter.post('/login', async (req, res) => {
     const loginUserController = makeLoginUserController()
 
     const { statusCode, body } = await loginUserController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+usersRouter.post('/refresh-token', async (req, res) => {
+    // console.log('Body recebido:', req.body)
+    // if (!req.body) return res.status(400).send({ message: 'Body vazio' })
+    const refreshTokenController = makeRefreshTokenController()
+
+    const { statusCode, body } = await refreshTokenController.execute(req)
 
     res.status(statusCode).send(body)
 })

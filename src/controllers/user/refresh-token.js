@@ -1,7 +1,8 @@
+// src\controllers\user\refresh-token.js
 import { ZodError } from 'zod'
-import { UnauthorizedError } from '../../errors'
-import { refreshTokenSchema } from '../../schemas'
-import { badRequest, ok, serverError, unauthorized } from '../helpers'
+import { UnauthorizedError } from '../../errors/index.js'
+import { refreshTokenSchema } from '../../schemas/index.js'
+import { badRequest, ok, serverError, unauthorized } from '../helpers/index.js'
 
 export class RefreshTokenController {
     constructor(refreshTokenUseCase) {
