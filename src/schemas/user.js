@@ -23,6 +23,16 @@ export const updateUserSchema = createUserSchema
     .strict({ message: 'Some provided field is not allowed.' })
 
 export const loginSchema = z.object({
-    email: z.email('Invalid email format'),
-    password: z.string().min(6, 'Password must be at least 6 characters long'),
+    email: z.email('Invalid email format').trim(),
+    password: z
+        .string()
+        .trim()
+        .min(6, 'Password must be at least 6 characters long'),
+})
+
+export const refreshTokenSchema = z.object({
+    refreshToken: z
+        .string('Refresh token is required')
+        .trim()
+        .min(1, 'Refresh token is required'),
 })
