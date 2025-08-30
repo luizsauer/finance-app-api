@@ -21,7 +21,7 @@ jobs:
               run: |
                   echo "DATABASE_URL=postgresql://root:password@localhost:5433/financeapp" > .env.test
                   echo "JWT_ACCESS_TOKEN_SECRET=secret" >> .env.test
-                  echo "JWT_REFRESH_TOKENSECRET=secret2" >> .env.test
+                  echo "JWT_REFRESH_TOKEN_SECRET=secret2" >> .env.test
 
             - name: Install dependencies
               run: npm ci --include=dev
@@ -58,7 +58,7 @@ jobs:
               run: |
                   echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
                   echo "JWT_ACCESS_TOKEN_SECRET=${{ secrets.JWT_ACCESS_TOKEN_SECRET }}" >> .env
-                  echo "JWT_REFRESH_TOKENSECRET=${{ secrets.JWT_REFRESH_TOKENSECRET }}" >> .env
+                  echo "JWT_REFRESH_TOKEN_SECRET=${{ secrets.JWT_REFRESH_TOKEN_SECRET }}" >> .env
 
             - name: Run migrations
               run: npm run migrate:deploy
